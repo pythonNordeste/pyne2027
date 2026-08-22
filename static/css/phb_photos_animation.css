@@ -1,0 +1,39 @@
+.phb-photos {
+    overflow: hidden;
+    width: 100%;
+}
+
+.phb-photos-carousel {
+    display: flex;
+    width: max-content;
+    animation: phb-photos-scroll 50s linear infinite;
+}
+
+.phb-photos:hover .phb-photos-carousel {
+    animation-play-state: paused;
+}
+
+.phb-photos-carousel img {
+    height: 300px;
+    width: auto;
+    flex-shrink: 0;
+    object-fit: cover;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@keyframes phb-photos-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .phb-photos-carousel {
+        animation: none;
+    }
+}

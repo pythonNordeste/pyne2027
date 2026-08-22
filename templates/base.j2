@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_tag }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ google_tag }}');
+    </script>
+    <!-- Google tag (gtag.js) -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A Python Nordeste acontece anualmente desde 2013, e em {{ year }} será realizado em {{ city }}, {{ state }}. {{ event_description }}">
+    <meta name="keywords" content="python, nordeste, programacao, pyladies, parnaiba, piaui, {{ year }}, evento, tecnologia, inclusao">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Comunidade Python Nordeste">
+    
+    <title>Python Nordeste {{ year }} | {{ city }} - {{ state }}</title>
+    
+    <meta property="og:title" content="Python Nordeste {{ year }} | {{ city }} - {{ state }}">
+    <meta property="og:description" content="A Python Nordeste acontece anualmente desde 2013, e em {{ year }} será realizado em {{ city }}, {{ state }}. {{ event_description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://{{ year }}.pythonnordeste.org/">
+    <meta property="og:image" content="https://{{ year }}.pythonnordeste.org/{{ preview_image }}">
+    <meta property="og:image:alt" content="Logo oficial da Python Nordeste {{ year }}">
+    <meta property="og:site_name" content="Python Nordeste {{ year }} | {{ city }} - {{ state }}">
+    <meta property="og:locale" content="pt_BR">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Python Nordeste {{ year }} | {{ city }} - {{ state }}">
+    <meta name="twitter:description" content="A Python Nordeste acontece anualmente desde 2013, e em {{ year }} será realizado em {{ city }}, {{ state }}. {{ event_description }}">
+    <meta name="twitter:image" content="https://{{ year }}.pythonnordeste.org/{{ preview_image }}">
+    <meta name="twitter:image:alt" content="Logo oficial da Python Nordeste {{ year }}">
+    
+    <link rel="canonical" href="https://{{ year }}.pythonnordeste.org/">
+    <link rel="icon" href="https://{{ year }}.pythonnordeste.org/{{ favicon }}" type="image/svg+xml">
+
+    <link rel="stylesheet" href="static/css/main.css">
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>
