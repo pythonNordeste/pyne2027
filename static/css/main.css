@@ -2,6 +2,10 @@ body {
     margin: 0;
 }
 
+header {
+    text-align: center;
+}
+
 .header-text h1 {
     font-size: 4rem;
     margin: 0;
