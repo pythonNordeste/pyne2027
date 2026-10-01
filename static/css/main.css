@@ -1,28 +1,401 @@
+/* ==========================================================================
+   Python Nordeste 2027 (PyNE 2027) - Estilos Principais
+   Identidade Visual: Rosa Dunas, Areia Quente e Linhas Topográficas
+   ========================================================================== */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    margin: 0;
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    background-color: var(--accent-color);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
-header {
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+.hero-section {
+    position: relative;
+    background: url("../img/contour_lines.svg") center/cover no-repeat, var(--primary-color);
+    color: #FFFFFF;
+    padding: 3.5rem 1.5rem 4.5rem;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -10px rgba(159, 53, 92, 0.4);
+}
+
+.hero-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+/* Badge de Localização e Ano */
+.location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(249, 244, 232, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 0.45rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.badge-pin {
+    font-size: 1.1rem;
+}
+
+/* Logo Oficial PyNE 2027 */
+.logo-wrapper {
+    max-width: 380px;
+    margin: 0 auto 2.2rem;
+    position: relative;
+}
+
+.hero-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: transparent;
+    filter: drop-shadow(0 18px 35px rgba(60, 20, 35, 0.3));
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+}
+
+.hero-logo:hover {
+    transform: translateY(-6px) scale(1.03);
+    filter: drop-shadow(0 26px 45px rgba(60, 20, 35, 0.42));
+}
+
+/* Tipografia do Hero */
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: #FFFFFF;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.edition-highlight {
+    color: var(--accent-color);
+}
+
+.hero-tagline {
+    font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.hero-description {
+    font-size: clamp(0.98rem, 1.8vw, 1.1rem);
+    line-height: 1.65;
+    max-width: 660px;
+    margin: 0 auto 2rem;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+/* Botões de Ação */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.85rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+    background: #FFFFFF;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(249, 244, 232, 0.15);
+    transform: translateY(-3px);
+}
+
+/* Redes Sociais */
+.social-section {
+    margin-top: 1.5rem;
+}
+
+.social-call {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.social-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.social-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--secondary-color);
+    padding: 0.55rem 1.25rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
+}
+
+.social-pill i {
+    font-size: 1.05rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-pill:hover {
+    transform: translateY(-3px);
+    background: #FFFFFF;
+    color: var(--text-dark);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+}
+
+.social-pill:hover i {
+    transform: scale(1.15);
+}
+
+.social-pill.instagram:hover i {
+    color: #E1306C;
+}
+
+.social-pill.linkedin:hover i {
+    color: #0A66C2;
+}
+
+.social-pill.youtube:hover i {
+    color: #FF0000;
+}
+
+.social-pill.telegram:hover i {
+    color: #24A1DE;
+}
+
+.social-pill.github:hover i {
+    color: #24292E;
+}
+
+.footer-heart {
+    color: var(--primary-color);
+    margin: 0 0.25rem;
+}
+
+
+/* ==========================================================================
+   Destination Section (Galeria de Parnaíba)
+   ========================================================================== */
+
+.destination-section {
+    padding: 5rem 1.5rem 4rem;
+    background: var(--accent-color);
     text-align: center;
 }
 
-.header-text h1 {
-    font-size: 4rem;
-    margin: 0;
+.section-header {
+    max-width: 680px;
+    margin: 0 auto 2.5rem;
 }
 
-footer {
+.section-tag {
+    display: inline-block;
+    color: var(--secondary-color);
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.85rem;
+}
+
+.section-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #55444D;
+}
+
+.phb-photos-carousel img {
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(43, 27, 34, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.phb-photos-carousel img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 28px rgba(43, 27, 34, 0.2);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+#footer {
+    background: var(--text-dark);
+    color: rgba(249, 244, 232, 0.85);
+    padding: 3.5rem 1.5rem 3rem;
     text-align: center;
-    padding: 2rem 1rem;
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.95rem;
 }
 
-footer a {
-    color: inherit;
+.footer-content {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+}
+
+.footer-cdc {
+    margin: 0;
+    line-height: 1.6;
+}
+
+#footer a {
+    color: var(--accent-color);
     text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 600;
+    transition: color 0.2s ease;
 }
 
-footer a:hover {
-    color: #000;
+#footer a:hover {
+    color: #FFFFFF;
+}
+
+.footer-repo {
+    margin: 0.25rem 0;
+}
+
+.footer-github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.3rem;
+    background: rgba(249, 244, 232, 0.08);
+    border: 1px solid rgba(249, 244, 232, 0.22);
+    border-radius: 9999px;
+    color: var(--accent-color) !important;
+    text-decoration: none !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.footer-github-link i {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.footer-github-link:hover {
+    background: rgba(249, 244, 232, 0.18);
+    border-color: rgba(249, 244, 232, 0.45);
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.footer-github-link:hover i {
+    transform: scale(1.15);
+}
+
+.footer-sub {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgba(249, 244, 232, 0.55);
+}
+
+/* ==========================================================================
+   Responsividade
+   ========================================================================== */
+
+@media (max-width: 600px) {
+    .hero-section {
+        padding: 2.5rem 1rem 3.5rem;
+    }
+
+    .location-badge {
+        font-size: 0.85rem;
+        padding: 0.35rem 1rem;
+    }
+
+    .social-badges {
+        gap: 0.5rem;
+    }
+
+    .social-pill {
+        padding: 0.45rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .destination-section {
+        padding: 3.5rem 1rem 2.5rem;
+    }
 }

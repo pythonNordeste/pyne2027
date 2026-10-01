@@ -5,43 +5,112 @@
 {% endblock %}
 
 {% block content %}
-<header id="header">
-    
-    <div class="phb-photos">
-        <div class="phb-photos-carousel">
+<main id="main-content">
+    <!-- Hero Section com Identidade Visual PyNE 2027 -->
+    <section id="hero" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            
+            <!-- Badge de Localização e Ano -->
+            {% if event.location and event.location.city %}
+            <div class="location-badge">
+                <i class="fa-solid fa-location-dot badge-pin" aria-hidden="true"></i>
+                <span class="badge-text">{{ event.location.city }}, {{ event.location.state }} • {{ event.edition }}</span>
+            </div>
+            {% endif %}
+
+            <!-- Logo Oficial PyNE 2027 -->
+            <div class="logo-wrapper">
+                <img 
+                    src="{{ theme.logo }}" 
+                    alt="Logo Oficial {{ event.name }} {{ event.edition }}" 
+                    class="hero-logo"
+                    id="hero-logo"
+                    loading="eager"
+                />
+            </div>
+
+            <!-- Título e Subtítulo -->
+            <div class="hero-text-content">
+                <h1 class="hero-title">{{ event.name }} <span class="edition-highlight">{{ event.edition }}</span></h1>
+                
+                {% if event.tagline %}
+                <p class="hero-tagline">{{ event.tagline }}</p>
+                {% endif %}
+
+                {% if event.description %}
+                <p class="hero-description">{{ event.description }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Botões de Ação Condicionais -->
+            {% if actions and (actions.tickets_url or actions.call_for_papers_url) %}
+            <div class="action-buttons">
+                {% if actions.tickets_url %}
+                <a href="{{ actions.tickets_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="btn-tickets">
+                    <i class="fa-solid fa-ticket" aria-hidden="true"></i> Garantir Ingresso
+                </a>
+                {% endif %}
+                {% if actions.call_for_papers_url %}
+                <a href="{{ actions.call_for_papers_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btn-cfp">
+                    <i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Submeter Palestra
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Redes Sociais da Comunidade -->
+            <div class="social-section">
+                <p class="social-call">Acompanhe as novidades da comunidade:</p>
+                <div class="social-badges">
+                    {% if social.instagram %}
+                    <a href="{{ social.instagram }}" target="_blank" rel="noopener noreferrer" class="social-pill instagram" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram
+                    </a>
+                    {% endif %}
+                    {% if social.linkedin %}
+                    <a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="social-pill linkedin" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
+                    </a>
+                    {% endif %}
+                    {% if social.youtube %}
+                    <a href="{{ social.youtube }}" target="_blank" rel="noopener noreferrer" class="social-pill youtube" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube" aria-hidden="true"></i> YouTube
+                    </a>
+                    {% endif %}
+                    {% if social.telegram %}
+                    <a href="{{ social.telegram }}" target="_blank" rel="noopener noreferrer" class="social-pill telegram" aria-label="Telegram">
+                        <i class="fa-brands fa-telegram" aria-hidden="true"></i> Telegram
+                    </a>
+                    {% endif %}
+                    {% if social.github %}
+                    <a href="{{ social.github }}" target="_blank" rel="noopener noreferrer" class="social-pill github" aria-label="GitHub">
+                        <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
-    </div>
+    </section>
 
-    <div class="header-text">
-        <br>
-        <h1>{{ event.name }} {{ event.edition }}</h1>
-        {% if event.location and event.location.city %}
-        <h3>📍 {{ event.location.city }}, {{ event.location.state }}</h3>
-        {% endif %}
-
-        {% if event.tagline %}
-        <p>{{ event.tagline }}</p>
-        {% endif %}
-        {% if event.description %}
-        <p>{{ event.description }}</p>
-        {% endif %}
-
-        {% if actions and (actions.tickets_url or actions.call_for_papers_url) %}
-        <div class="action-buttons">
-            {% if actions.tickets_url %}<a href="{{ actions.tickets_url }}" target="_blank" class="btn-action">Garantir Ingresso</a>{% endif %}
-            {% if actions.call_for_papers_url %}<a href="{{ actions.call_for_papers_url }}" target="_blank" class="btn-action">Submeter Palestra</a>{% endif %}
+    <!-- Galeria de Fotos de Parnaíba -->
+    <section id="destination" class="destination-section">
+        <div class="section-header">
+            <span class="section-tag"><i class="fa-solid fa-compass" aria-hidden="true"></i> Destino {{ event.edition }}</span>
+            <h2 class="section-title"><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i> Parnaíba espera por você</h2>
+            <p class="section-subtitle">
+                O litoral do Piauí combina natureza exuberante, dunas paradisíacas e o acolhimento caloroso da nossa comunidade.
+            </p>
         </div>
-        {% endif %}
 
-        <div class="social-icons">
-            <a href="{{ social.instagram | default('') }}" target="_blank">Instagram</a> |
-            <a href="{{ social.linkedin | default('') }}" target="_blank">LinkedIn</a> |
-            <a href="{{ social.youtube | default('') }}" target="_blank">YouTube</a>
-            {% if social and social.telegram %} | <a href="{{ social.telegram }}" target="_blank">Telegram</a>{% endif %}
+        <div class="phb-photos" id="phb-photos">
+            <div class="phb-photos-carousel">
+                <!-- Imagens injetadas via JavaScript -->
+            </div>
         </div>
-    </div>
-
-</header>
+    </section>
+</main>
 {% endblock %}
 
 {% block extra_js %}
