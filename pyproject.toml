@@ -12,6 +12,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "livereload>=2.7.1",
     "pytest",
     "ruff",
 ]
@@ -25,4 +26,12 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 only-include = ["main.py"]
+
+[tool.uv.sources]
+livereload = { git = "https://github.com/HigorMonteiro/python-livereload", branch = "master" }
+
+[dependency-groups]
+dev = [
+    "livereload",
+]
 
