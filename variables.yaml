@@ -3,7 +3,7 @@ event:
   name: "Python Nordeste"       # Ex: "Python Brasil", "PyLadies Day", "Caipyra"
   edition: "2027"               # Ex: "2027", "10ª Edição"
   tagline: "O maior evento de Python do Nordeste agora no litoral do Piauí!"
-  description: "Somos um evento focado em incluir pessoas na tecnologia e disseminar a linguagem de programação Python na região nordeste do Brasil."
+  description: "Pessoas > Tecnologia"
   date: "2027"                  # Pode ser "15 a 18 de Outubro" ou "Em breve"
   format: "presencial"          # "presencial" ou "online"
   url: "https://2027.pythonnordeste.org/"
@@ -20,7 +20,7 @@ theme:
   accent_color: "#F9F4E8"      # Areia / Off-white
   text_dark: "#2B1B22"         # Texto contrastante
   logo: "static/img/pyne_emblem.png"
-  favicon: "static/img/pyne_emblem.png"
+  favicon: "static/img/favicon.png"
   preview_image: "static/img/logo_pyne2027.png"
 
 # Links e Ações Principais (habilitados conforme a fase do evento)

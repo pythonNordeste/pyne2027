@@ -8,30 +8,31 @@
 <main id="main-content">
     <!-- Hero Section com Identidade Visual PyNE 2027 -->
     <section id="hero" class="hero-section">
-        <div class="hero-overlay"></div>
         <div class="hero-container">
             
             <!-- Badge de Localização e Ano -->
             {% if event.location and event.location.city %}
-            <div class="location-badge">
+            <div class="location-badge hero-animate-1">
                 <i class="fa-solid fa-location-dot badge-pin" aria-hidden="true"></i>
                 <span class="badge-text">{{ event.location.city }}, {{ event.location.state }} • {{ event.edition }}</span>
             </div>
             {% endif %}
 
-            <!-- Logo Oficial PyNE 2027 -->
-            <div class="logo-wrapper">
-                <img 
-                    src="{{ theme.logo }}" 
-                    alt="Logo Oficial {{ event.name }} {{ event.edition }}" 
-                    class="hero-logo"
-                    id="hero-logo"
-                    loading="eager"
-                />
+            <!-- Logo Oficial PyNE 2027 com levitação e suporte a 3D tilt -->
+            <div class="logo-wrapper hero-animate-2">
+                <div class="logo-tilt-container" id="logo-tilt">
+                    <img 
+                        src="{{ theme.logo }}" 
+                        alt="Logo Oficial {{ event.name }} {{ event.edition }}" 
+                        class="hero-logo"
+                        id="hero-logo"
+                        loading="eager"
+                    />
+                </div>
             </div>
 
             <!-- Título e Subtítulo -->
-            <div class="hero-text-content">
+            <div class="hero-text-content hero-animate-3">
                 <h1 class="hero-title">{{ event.name }} <span class="edition-highlight">{{ event.edition }}</span></h1>
                 
                 {% if event.tagline %}
@@ -45,7 +46,7 @@
 
             <!-- Botões de Ação Condicionais -->
             {% if actions and (actions.tickets_url or actions.call_for_papers_url) %}
-            <div class="action-buttons">
+            <div class="action-buttons hero-animate-4">
                 {% if actions.tickets_url %}
                 <a href="{{ actions.tickets_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="btn-tickets">
                     <i class="fa-solid fa-ticket" aria-hidden="true"></i> Garantir Ingresso
@@ -60,7 +61,7 @@
             {% endif %}
 
             <!-- Redes Sociais da Comunidade -->
-            <div class="social-section">
+            <div class="social-section hero-animate-5">
                 <p class="social-call">Acompanhe as novidades da comunidade:</p>
                 <div class="social-badges">
                     {% if social.instagram %}
@@ -115,4 +116,5 @@
 
 {% block extra_js %}
     <script src="./static/js/phb_photos_animation.js"></script>
+    <script src="./static/js/hero_animations.js"></script>
 {% endblock %}

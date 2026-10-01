@@ -27,12 +27,37 @@ body {
 
 .hero-section {
     position: relative;
-    background: url("../img/contour_lines.svg") center/cover no-repeat, var(--primary-color);
+    background: linear-gradient(145deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: #FFFFFF;
     padding: 3.5rem 1.5rem 4.5rem;
     text-align: center;
     overflow: hidden;
     box-shadow: 0 10px 30px -10px rgba(159, 53, 92, 0.4);
+}
+
+/* Vento suave nas curvas de nível das dunas */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: -35px;
+    background: url("../img/contour_lines.svg") center/cover no-repeat;
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 1;
+    animation: duneWind 26s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@keyframes duneWind {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+    50% {
+        transform: scale(1.04) translate(-14px, -8px);
+    }
+    100% {
+        transform: scale(1) translate(12px, 6px);
+    }
 }
 
 .hero-container {
@@ -58,10 +83,33 @@ body {
     color: #FFFFFF;
     margin-bottom: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.location-badge:hover {
+    transform: translateY(-2px);
+    background: rgba(249, 244, 232, 0.32);
 }
 
 .badge-pin {
     font-size: 1.1rem;
+    display: inline-block;
+    color: #FFFFFF;
+    animation: pinPulse 2.8s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes pinPulse {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    14% {
+        transform: scale(1.28) translateY(-3px);
+        color: #FFE600;
+    }
+    28% {
+        transform: scale(1) translateY(0);
+    }
 }
 
 /* Logo Oficial PyNE 2027 */
@@ -69,6 +117,13 @@ body {
     max-width: 380px;
     margin: 0 auto 2.2rem;
     position: relative;
+    perspective: 1000px;
+}
+
+.logo-tilt-container {
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out;
+    will-change: transform;
 }
 
 .hero-logo {
@@ -77,12 +132,24 @@ body {
     display: block;
     background: transparent;
     filter: drop-shadow(0 18px 35px rgba(60, 20, 35, 0.3));
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+    animation: floatEmblem 6s ease-in-out infinite;
+    transition: filter 0.4s ease;
+    will-change: transform, filter;
+}
+
+@keyframes floatEmblem {
+    0%, 100% {
+        transform: translateY(0);
+        filter: drop-shadow(0 18px 35px rgba(60, 20, 35, 0.3));
+    }
+    50% {
+        transform: translateY(-9px);
+        filter: drop-shadow(0 30px 48px rgba(60, 20, 35, 0.4));
+    }
 }
 
 .hero-logo:hover {
-    transform: translateY(-6px) scale(1.03);
-    filter: drop-shadow(0 26px 45px rgba(60, 20, 35, 0.42));
+    filter: drop-shadow(0 34px 54px rgba(60, 20, 35, 0.48));
 }
 
 /* Tipografia do Hero */
@@ -97,7 +164,22 @@ body {
 }
 
 .edition-highlight {
+    display: inline-block;
     color: var(--accent-color);
+    background: linear-gradient(110deg, var(--accent-color) 20%, #FFFFFF 48%, var(--accent-color) 76%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer2027 6s ease-in-out infinite;
+}
+
+@keyframes shimmer2027 {
+    0% {
+        background-position: 150% 0;
+    }
+    45%, 100% {
+        background-position: -50% 0;
+    }
 }
 
 .hero-tagline {
@@ -399,3 +481,61 @@ body {
         padding: 3.5rem 1rem 2.5rem;
     }
 }
+
+/* ==========================================================================
+   Entradas Escalonadas (Staggered Reveal)
+   ========================================================================== */
+
+@keyframes heroReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-animate-1 {
+    animation: heroReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.hero-animate-2 {
+    animation: heroReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.hero-animate-3 {
+    animation: heroReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+.hero-animate-4 {
+    animation: heroReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.hero-animate-5 {
+    animation: heroReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+/* Acessibilidade: Desativa animações se o usuário preferir menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    .hero-section::before,
+    .badge-pin,
+    .hero-logo,
+    .edition-highlight,
+    .hero-animate-1,
+    .hero-animate-2,
+    .hero-animate-3,
+    .hero-animate-4,
+    .hero-animate-5 {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+    .edition-highlight {
+        background: none !important;
+        -webkit-text-fill-color: var(--accent-color) !important;
+    }
+}
+

@@ -1,12 +1,17 @@
 .phb-photos {
     overflow: hidden;
     width: 100%;
+    position: relative;
+    /* Suavização cinematográfica nas bordas laterais */
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
 .phb-photos-carousel {
     display: flex;
     width: max-content;
-    animation: phb-photos-scroll 50s linear infinite;
+    animation: phb-photos-scroll 60s linear infinite;
+    will-change: transform;
 }
 
 .phb-photos:hover .phb-photos-carousel {
@@ -14,13 +19,19 @@
 }
 
 .phb-photos-carousel img {
-    height: 300px;
+    height: 290px;
     width: auto;
     flex-shrink: 0;
     object-fit: cover;
-    margin-right: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 12px 8px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(43, 27, 34, 0.12);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+}
+
+.phb-photos-carousel img:hover {
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: 0 16px 32px rgba(43, 27, 34, 0.24);
 }
 
 @keyframes phb-photos-scroll {
@@ -35,5 +46,10 @@
 @media (prefers-reduced-motion: reduce) {
     .phb-photos-carousel {
         animation: none;
+    }
+    .phb-photos {
+        mask-image: none;
+        -webkit-mask-image: none;
+        overflow-x: auto;
     }
 }
