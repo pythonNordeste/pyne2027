@@ -10,3 +10,19 @@ header {
     font-size: 4rem;
     margin: 0;
 }
+
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+footer a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #000;
+}

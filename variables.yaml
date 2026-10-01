@@ -2,6 +2,7 @@ google_tag: G-Z6HYH6HCL2
 year: 2027
 city: Parnaíba
 state: Piauí
-event_description: Somos um evento focado em incluir pessoas na tecnologia e disseminar a linguagem de programação Python, na região nordeste do Brasil.
+event_description: Somos um evento focado em incluir pessoas na tecnologia e disseminar a linguagem de programação Python.
 preview_image: static/img/icons/palm_tree.png
 favicon: static/img/icons/palm_tree.png
+code_of_conduct_url: https://apyb.python.org.br/pythonbrasil/cdc/

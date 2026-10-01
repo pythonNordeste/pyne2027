@@ -48,6 +48,19 @@
     {% block content %}
     {% endblock %}
 
+    {% block footer %}
+    {% if code_of_conduct_url %}
+    <footer>
+        <p>
+            Este evento segue o 
+            <a href="{{ code_of_conduct_url }}" target="_blank" rel="noopener noreferrer">
+                Código de Conduta da Comunidade Python
+            </a>.
+        </p>
+    </footer>
+    {% endif %}
+    {% endblock %}
+
     {% block extra_js %}
     {% endblock %}
 </body>
