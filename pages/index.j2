@@ -14,16 +14,30 @@
 
     <div class="header-text">
         <br>
-        <h1>Python Nordeste 2027</h1>
-        <h3>📍 Parnaíba, Piauí</h3>
+        <h1>{{ event.name }} {{ event.edition }}</h1>
+        {% if event.location and event.location.city %}
+        <h3>📍 {{ event.location.city }}, {{ event.location.state }}</h3>
+        {% endif %}
 
-        <p>O maior evento de Python do Nordeste agora vai acontecer no litoral do Piauí.</p>
-        <p>Nos siga nas redes sociais e não perca nenhuma atualização.</p>
+        {% if event.tagline %}
+        <p>{{ event.tagline }}</p>
+        {% endif %}
+        {% if event.description %}
+        <p>{{ event.description }}</p>
+        {% endif %}
+
+        {% if actions and (actions.tickets_url or actions.call_for_papers_url) %}
+        <div class="action-buttons">
+            {% if actions.tickets_url %}<a href="{{ actions.tickets_url }}" target="_blank" class="btn-action">Garantir Ingresso</a>{% endif %}
+            {% if actions.call_for_papers_url %}<a href="{{ actions.call_for_papers_url }}" target="_blank" class="btn-action">Submeter Palestra</a>{% endif %}
+        </div>
+        {% endif %}
 
         <div class="social-icons">
-            <a href="" target="_blank">Instagram</a> |
-            <a href="" target="_blank">LinkedIn</i></a> |
-            <a href="" target="_blank">YouTube</i></a>
+            <a href="{{ social.instagram | default('') }}" target="_blank">Instagram</a> |
+            <a href="{{ social.linkedin | default('') }}" target="_blank">LinkedIn</a> |
+            <a href="{{ social.youtube | default('') }}" target="_blank">YouTube</a>
+            {% if social and social.telegram %} | <a href="{{ social.telegram }}" target="_blank">Telegram</a>{% endif %}
         </div>
     </div>
 

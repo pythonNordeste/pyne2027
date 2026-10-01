@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+{% set event_name = event.name if event and event.name else 'Python Nordeste' %}
+{% set event_edition = event.edition if event and event.edition else (year | default('2027')) %}
+{% set event_city = event.location.city if event and event.location and event.location.city else (city | default('')) %}
+{% set event_state = event.location.state if event and event.location and event.location.state else (state | default('')) %}
+{% set event_desc = event.description if event and event.description else (event_description | default('')) %}
+{% set event_url = event.url if event and event.url else ('https://' ~ event_edition ~ '.pythonnordeste.org/') %}
+{% set event_preview_image = theme.preview_image if theme and theme.preview_image else (preview_image | default('static/img/icons/palm_tree.png')) %}
+{% set event_favicon = theme.favicon if theme and theme.favicon else (favicon | default('static/img/icons/palm_tree.png')) %}
 <head>
     <!-- Google tag (gtag.js) -->
+    {% if google_tag %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_tag }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -9,35 +18,42 @@
         gtag('js', new Date());
         gtag('config', '{{ google_tag }}');
     </script>
-    <!-- Google tag (gtag.js) -->
+    {% endif %}
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A Python Nordeste acontece anualmente desde 2013, e em {{ year }} será realizado em {{ city }}, {{ state }}. {{ event_description }}">
-    <meta name="keywords" content="python, nordeste, programacao, pyladies, parnaiba, piaui, {{ year }}, evento, tecnologia, inclusao">
+    <meta name="description" content="{{ event_name }} {{ event_edition }}{% if event_city %} em {{ event_city }}, {{ event_state }}{% endif %}. {{ event_desc }}">
+    <meta name="keywords" content="python, {{ event_name | lower }}, programacao, pyladies, {{ event_city | lower }}, {{ event_state | lower }}, {{ event_edition }}, evento, tecnologia, inclusao">
     <meta name="robots" content="index, follow">
-    <meta name="author" content="Comunidade Python Nordeste">
+    <meta name="author" content="Comunidade {{ event_name }}">
     
-    <title>Python Nordeste {{ year }} | {{ city }} - {{ state }}</title>
+    <title>{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}</title>
     
-    <meta property="og:title" content="Python Nordeste {{ year }} | {{ city }} - {{ state }}">
-    <meta property="og:description" content="A Python Nordeste acontece anualmente desde 2013, e em {{ year }} será realizado em {{ city }}, {{ state }}. {{ event_description }}">
+    <meta property="og:title" content="{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}">
+    <meta property="og:description" content="{{ event_desc }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://{{ year }}.pythonnordeste.org/">
-    <meta property="og:image" content="https://{{ year }}.pythonnordeste.org/{{ preview_image }}">
-    <meta property="og:image:alt" content="Logo oficial da Python Nordeste {{ year }}">
-    <meta property="og:site_name" content="Python Nordeste {{ year }} | {{ city }} - {{ state }}">
+    <meta property="og:url" content="{{ event_url }}">
+    <meta property="og:image" content="{{ event_preview_image }}">
+    <meta property="og:image:alt" content="Logo oficial {{ event_name }} {{ event_edition }}">
+    <meta property="og:site_name" content="{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}">
     <meta property="og:locale" content="pt_BR">
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Python Nordeste {{ year }} | {{ city }} - {{ state }}">
-    <meta name="twitter:description" content="A Python Nordeste acontece anualmente desde 2013, e em {{ year }} será realizado em {{ city }}, {{ state }}. {{ event_description }}">
-    <meta name="twitter:image" content="https://{{ year }}.pythonnordeste.org/{{ preview_image }}">
-    <meta name="twitter:image:alt" content="Logo oficial da Python Nordeste {{ year }}">
+    <meta name="twitter:title" content="{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}">
+    <meta name="twitter:description" content="{{ event_desc }}">
+    <meta name="twitter:image" content="{{ event_preview_image }}">
+    <meta name="twitter:image:alt" content="Logo oficial {{ event_name }} {{ event_edition }}">
     
-    <link rel="canonical" href="https://{{ year }}.pythonnordeste.org/">
-    <link rel="icon" href="https://{{ year }}.pythonnordeste.org/{{ favicon }}" type="image/svg+xml">
+    <link rel="canonical" href="{{ event_url }}">
+    <link rel="icon" href="{{ event_favicon }}" type="image/svg+xml">
+
+    <style>
+        :root {
+            --primary-color: {{ theme.primary_color if theme and theme.primary_color else '#306998' }};
+            --secondary-color: {{ theme.secondary_color if theme and theme.secondary_color else '#FFD43B' }};
+        }
+    </style>
 
     <link rel="stylesheet" href="static/css/main.css">
     {% block extra_css %}
@@ -46,6 +62,19 @@
 </head>
 <body>
     {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+    {% if code_of_conduct_url %}
+    <footer>
+        <p>
+            Este evento segue o 
+            <a href="{{ code_of_conduct_url }}" target="_blank" rel="noopener noreferrer">
+                Código de Conduta da Comunidade Python
+            </a>.
+        </p>
+    </footer>
+    {% endif %}
     {% endblock %}
 
     {% block extra_js %}
