@@ -6,13 +6,25 @@ Pode ser executado localmente (com GITHUB_TOKEN) ou via GitHub Actions (workflow
 
 import json
 import os
+import shutil
+import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "pythonNordeste/pyne2027")
 TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+
+if not TOKEN and shutil.which("gh"):
+    try:
+        proc = subprocess.run(
+            ["gh", "auth", "token"], capture_output=True, text=True, check=True
+        )
+        TOKEN = proc.stdout.strip()
+    except subprocess.CalledProcessError, FileNotFoundError, OSError:
+        TOKEN = None
 
 if not TOKEN:
     print("❌ Erro: GITHUB_TOKEN ou GH_TOKEN não encontrado nas variáveis de ambiente.")
@@ -56,6 +68,16 @@ def sync_labels():
     existing = api_request(f"repos/{REPO}/labels?per_page=100")
     if isinstance(existing, dict) and "error" in existing:
         print(f"❌ Erro ao listar labels: {existing.get('message')}")
+        if existing.get("error") == 404:
+            print(
+                "💡 Dica: Erro 404 indica que o token atual não tem acesso ao repositório."
+            )
+            print(
+                "   Se estiver usando gh CLI, reautentique com: gh auth login -w -s repo"
+            )
+            print(
+                "   Ou defina GITHUB_TOKEN com um Personal Access Token (Classic) com escopo 'repo'."
+            )
         return
 
     existing_names = {l["name"].lower(): l["name"] for l in existing}
@@ -281,6 +303,16 @@ def sync_issues():
     existing = api_request(f"repos/{REPO}/issues?state=all&per_page=100")
     if isinstance(existing, dict) and "error" in existing:
         print(f"❌ Erro ao listar issues: {existing.get('message')}")
+        if existing.get("error") == 404:
+            print(
+                "💡 Dica: Erro 404 indica que o token atual não tem acesso ao repositório."
+            )
+            print(
+                "   Se estiver usando gh CLI, reautentique com: gh auth login -w -s repo"
+            )
+            print(
+                "   Ou defina GITHUB_TOKEN com um Personal Access Token (Classic) com escopo 'repo'."
+            )
         return
 
     existing_titles = {
