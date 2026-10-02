@@ -43,6 +43,15 @@ social:
 # Repositório do Projeto no GitHub
 github_repo_url: "https://github.com/pythonNordeste/pyne2027"
 
-# Google Analytics
+# Google Analytics (ativo apenas em produção)
 google_tag: "G-Z6HYH6HCL2"
+
+# Configuração de Ambiente e SEO
+# Use "staging" para homologação/testes sem indexação, ou "production" para o ar oficial.
+# Quando environment for "staging" ou allow_indexing for false:
+# - Motores de busca (Google, Bing, etc.) são bloqueados com <meta name="robots" content="noindex, nofollow">
+# - O arquivo robots.txt é gerado com "Disallow: /"
+# - O Google Analytics é pausado para não poluir as métricas reais
+environment: "staging"         # "staging" ou "production"
+allow_indexing: false          # Se false, impede indexação no Google / motores de busca
 

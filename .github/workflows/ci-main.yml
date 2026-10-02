@@ -53,6 +53,8 @@ jobs:
         run: |
           test -f dist/index.html || (echo "dist/index.html não foi gerado!" && exit 1)
           test -f dist/static/img/favicon.png || (echo "dist/static/img/favicon.png não foi encontrado!" && exit 1)
+          test -f dist/robots.txt || (echo "dist/robots.txt não foi gerado!" && exit 1)
+          test -f dist/.nojekyll || (echo "dist/.nojekyll não foi gerado!" && exit 1)
 
       - name: Upload de Artefato do GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

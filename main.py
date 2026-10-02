@@ -37,12 +37,31 @@ def render():
     output_folder.mkdir(exist_ok=True)
     static_folder.copy(output_folder / static_folder.name)
 
+    root_favicon = Path(__file__).parent / "favicon.ico"
+    if root_favicon.exists():
+        shutil.copy(root_favicon, output_folder / "favicon.ico")
+
     for file in pages_folder.glob("*.j2"):
         template_path = file.relative_to(pages_folder.parent).as_posix()
         template = environment.get_template(template_path)
         rendered_content = template.render(settings)
         output_file = output_folder / file.with_suffix(".html").name
         output_file.write_text(rendered_content)
+
+    # Geração automática de robots.txt com base no ambiente (staging vs production)
+    is_staging = settings.get("environment") == "staging" or not settings.get(
+        "allow_indexing", True
+    )
+    robots_file = output_folder / "robots.txt"
+    if is_staging:
+        robots_file.write_text("User-agent: *\nDisallow: /\n")
+    else:
+        site_url = settings.get("event", {}).get("url", "").rstrip("/")
+        sitemap_line = f"\nSitemap: {site_url}/sitemap.xml" if site_url else ""
+        robots_file.write_text(f"User-agent: *\nAllow: /{sitemap_line}\n")
+
+    # Arquivo .nojekyll para o GitHub Pages servir arquivos estáticos diretamente
+    (output_folder / ".nojekyll").touch()
 
 
 @cli.command()

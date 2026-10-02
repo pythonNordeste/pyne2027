@@ -38,3 +38,29 @@ def test_render_generates_dist_and_index_html():
     assert '<footer id="footer">' in content
     assert "fa-brands fa-github" in content
     assert "Pessoas > Tecnologia" in content
+
+
+def test_staging_environment_blocks_search_engines():
+    render()
+    robots_file = output_folder / "robots.txt"
+    assert robots_file.exists(), "O arquivo dist/robots.txt deve ser gerado."
+    assert "Disallow: /" in robots_file.read_text(), (
+        "Em staging, o robots.txt deve bloquear todos os robôs de busca."
+    )
+
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert 'content="noindex, nofollow' in index_html, (
+        "Em staging, a meta tag robots deve ser 'noindex, nofollow'."
+    )
+    assert 'name="googlebot" content="noindex, nofollow' in index_html, (
+        "Em staging, a meta tag googlebot deve ser 'noindex, nofollow'."
+    )
+    assert "googletagmanager.com/gtag/js" not in index_html, (
+        "Em staging, o Google Analytics não deve ser injetado."
+    )
+    assert (output_folder / "favicon.ico").exists(), (
+        "O arquivo dist/favicon.ico deve ser copiado."
+    )
+    assert (output_folder / ".nojekyll").exists(), (
+        "O arquivo dist/.nojekyll deve ser gerado para o GitHub Pages."
+    )
