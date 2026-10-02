@@ -56,8 +56,9 @@ Quadro oficial de acompanhamento do desenvolvimento do site da **Python Nordeste
   - Implementar template `pages/cdc.j2` com o texto integral e acessível do Código de Conduta da APyB para navegação interna rápida.
 - [ ] **#04 — Easter Egg no DevTools Console**
   - Injetar no console do navegador a mensagem comunitária estilizada da edição 2027 com as bandeiras da diversidade e o lema *Pessoas > Tecnologia*.
-- [ ] **#05 — Expansão do Rodapé em 3 Colunas**
-  - Estruturar o footer com: (1) Links rápidos de navegação, (2) Créditos comunitários (GruPy/comunidade local e designers), (3) Contato oficial.
+- [ ] **#05 — Rodapé Modular e Configurável (Multi-colunas)**
+  - Estruturar o footer de forma genérica e 100% parametrizável via `variables.yaml`.
+  - Suporte a colunas dinâmicas e opcionais (links rápidos, créditos/realização e contato oficial), exibidas apenas se preenchidas nas configurações.
 
 ---
 
