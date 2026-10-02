@@ -4,6 +4,28 @@ Quadro oficial de acompanhamento do desenvolvimento do site da **Python Nordeste
 
 ---
 
+## 🏷️ Taxonomia de Labels Oficiais
+
+Para organizar as contribuições da comunidade no GitHub, utilizamos a seguinte convenção de etiquetas:
+
+| Categoria | Label | Cor | Descrição |
+| :--- | :--- | :--- | :--- |
+| **Tipo** | `type: feat` | `#0E8A16` | Nova funcionalidade ou componente visual |
+| | `type: enhancement` | `#1D76DB` | Melhoria em funcionalidade existente |
+| | `type: bug` | `#D93F0B` | Correção de comportamento inesperado ou erro |
+| | `type: docs` | `#0075CA` | Atualização de textos, README ou documentação |
+| | `type: chore` | `#7057FF` | Tarefas técnicas, CI/CD ou dependências |
+| | `type: a11y` | `#FBCA04` | Acessibilidade (WCAG, leitores de tela, contraste) |
+| **Escopo** | `scope: ui/ux` | `#BFDADC` | Interface, CSS, animações e responsividade |
+| | `scope: content` | `#D4C5F9` | Textos, copies e informações do evento |
+| | `scope: community` | `#F9D0C4` | Código de conduta, voluntários e inclusão |
+| | `scope: sponsor` | `#FEF2C0` | Patrocínio, cotas e media kit |
+| | `scope: schedule` | `#C2E0C6` | Programação, palestras e palestrantes |
+| **Onboarding** | `good first issue` | `#7057FF` | Ideal para pessoas iniciando no código aberto |
+| | `help wanted` | `#008672` | Tarefa aberta aguardando contribuição |
+
+---
+
 ## 🟢 Entregas Realizadas (Done)
 
 - [x] **Setup do Ambiente & Ferramentas**
@@ -47,34 +69,130 @@ Quadro oficial de acompanhamento do desenvolvimento do site da **Python Nordeste
 
 ## 🟡 Próximas Prioridades (To Do / In Progress)
 
-- [ ] **#01 — Barra de Navegação (Navbar Fixa e Responsiva)**
-  - Adicionar menu superior com logotipo, links com rolagem suave para as seções (*Início*, *Sobre*, *Destino*, *CDC*) e ícones sociais.
-  - Menu hambúrguer / gaveta mobile para celulares.
-- [ ] **#02 — Seção "Sobre a Python Nordeste"**
-  - Criar bloco de conteúdo destacando a história itinerante de mais de 10 anos do evento, o acolhimento da comunidade e a chegada inédita a Parnaíba/PI.
-- [ ] **#03 — Página Dedicada do Código de Conduta (`/cdc.html`)**
-  - Implementar template `pages/cdc.j2` com o texto integral e acessível do Código de Conduta da APyB para navegação interna rápida.
-- [ ] **#04 — Easter Egg no DevTools Console**
-  - Injetar no console do navegador a mensagem comunitária estilizada da edição 2027 com as bandeiras da diversidade e o lema *Pessoas > Tecnologia*.
-- [ ] **#05 — Rodapé Modular e Configurável (Multi-colunas)**
-  - Estruturar o footer de forma genérica e 100% parametrizável via `variables.yaml`.
-  - Suporte a colunas dinâmicas e opcionais (links rápidos, créditos/realização e contato oficial), exibidas apenas se preenchidas nas configurações.
+### #01 — Barra de Navegação (Navbar Fixa e Responsiva)
+- **Tipo:** `type: feat`
+- **Labels:** `scope: ui/ux`, `good first issue`
+- **Milestone:** `v0.2.0 - Navegação & Identidade`
+- **Esforço:** `Médio`
+- **Descrição:** Adicionar barra de navegação no topo com logo, links de rolagem suave para as seções da página (*Início*, *Sobre*, *Destino*, *CDC*) e atalhos para as redes sociais.
+- **Critérios de Aceite:**
+  - [ ] Navbar fixa no topo com efeito vidro/blur translúcido ao rolar a página.
+  - [ ] Links âncora funcionando com rolagem suave (`scroll-behavior: smooth`).
+  - [ ] Ícones sociais do GitHub, Instagram, LinkedIn e YouTube à direita.
+  - [ ] Menu hambúrguer responsivo para celulares (< 768px).
+
+---
+
+### #02 — Seção "Sobre a Python Nordeste"
+- **Tipo:** `type: feat`
+- **Labels:** `scope: content`, `good first issue`
+- **Milestone:** `v0.2.0 - Navegação & Identidade`
+- **Esforço:** `Pequeno`
+- **Descrição:** Criar um bloco institucional contextualizando a história itinerante de mais de 10 anos do evento, o compromisso com diversidade e inclusão, e a celebração da chegada inédita ao litoral do Piauí.
+- **Critérios de Aceite:**
+  - [ ] Texto e títulos configuráveis via `variables.yaml`.
+  - [ ] Layout harmonizado com a paleta oficial (fundo Areia/Off-white e tipografia *Outfit*).
+  - [ ] Destaques em números ou marcos da comunidade (anos de história, edições passadas).
+
+---
+
+### #03 — Página Dedicada do Código de Conduta (`/cdc.html`)
+- **Tipo:** `type: feat`
+- **Labels:** `scope: community`, `type: docs`, `good first issue`
+- **Milestone:** `v0.2.0 - Navegação & Identidade`
+- **Esforço:** `Pequeno`
+- **Descrição:** Implementar uma página dedicada (`pages/cdc.j2`) com o texto completo do Código de Conduta da APyB e canais de contato da comissão de resposta a incidentes.
+- **Critérios de Aceite:**
+  - [ ] Página acessível diretamente pela rota `/cdc.html`.
+  - [ ] Texto integral com formatação limpa e legível.
+  - [ ] Informações claras sobre como reportar incidentes de forma segura.
+
+---
+
+### #04 — Easter Egg no DevTools Console
+- **Tipo:** `type: chore`
+- **Labels:** `scope: community`, `good first issue`
+- **Milestone:** `v0.2.0 - Navegação & Identidade`
+- **Esforço:** `Pequeno`
+- **Descrição:** Injetar no console do navegador uma mensagem acolhedora com arte em texto da edição 2027, bandeiras da diversidade e o lema comunitário *Pessoas > Tecnologia*.
+- **Critérios de Aceite:**
+  - [ ] Mensagem estilizável com CSS no `console.log`.
+  - [ ] Execução leve no carregamento da página sem impactar performance.
+
+---
+
+### #05 — Rodapé Modular e Configurável (Multi-colunas)
+- **Tipo:** `type: enhancement`
+- **Labels:** `scope: ui/ux`, `type: feat`
+- **Milestone:** `v0.2.0 - Navegação & Identidade`
+- **Esforço:** `Médio`
+- **Descrição:** Estruturar o rodapé de forma totalmente genérica e parametrizável via `variables.yaml`, suportando colunas opcionais (links rápidos, créditos de realização e canais de contato).
+- **Critérios de Aceite:**
+  - [ ] Colunas opcionais: se uma seção não estiver preenchida no YAML, ela não é renderizada.
+  - [ ] Preservação do link oficial do repositório no GitHub com ícone Font Awesome.
+  - [ ] Layout responsivo em colunas no desktop e empilhado no celular.
 
 ---
 
 ## 📋 Backlog de Fases Futuras (Roadmap do Evento)
 
-- [ ] **#06 — Módulo de Voluntárias(os) & Organização**
-  - Suporte modular no `variables.yaml` para cadastrar membros da equipe com foto, nome, bio e links sociais, renderizados em grid dinâmico.
-- [ ] **#07 — Seção de Captação de Patrocínio & Media Kit**
-  - Bloco para empresas com botões de download do Media Kit (pt-br / en) ativável condicionalmente conforme a fase de captação.
-- [ ] **#08 — Grade de Patrocinadoras por Cotas**
-  - Estrutura pronta para exibir marcas apoiadoras organizadas por cotas (*Diamante, Ouro, Prata, Bronze, Apoio*).
-- [ ] **#09 — Seção do Local do Evento (Venue & Mapa)**
-  - Bloco com informações sobre o centro de convenções/universidade em Parnaíba, dicas de hospedagem e mapa interativo integrado.
-- [ ] **#10 — Página de Palestrantes e Agenda (`/speakers.html`)**
-  - Grid de palestrantes confirmados, keynotes e grade de horários integrada ao Pretalx ou lista estática.
-- [ ] **#11 — Modal de Boas-Vindas Comunitário**
-  - Popup acolhedor na primeira visita (com persistência em `localStorage`) destacando o Código de Conduta e as novidades.
-- [ ] **#12 — Auditoria de Acessibilidade (a11y) & SEO Final**
-  - Verificação de contraste de cores nos níveis WCAG AA/AAA, tags ARIA e pontuação 100 no Lighthouse.
+### #06 — Módulo de Voluntárias(os) & Organização
+- **Tipo:** `type: feat`
+- **Labels:** `scope: community`, `type: enhancement`
+- **Milestone:** `v0.3.0 - Envolvimento Comunitário`
+- **Esforço:** `Médio`
+- **Descrição:** Suporte modular no `variables.yaml` para listar voluntárias e voluntários da organização com foto, nome, bio e links sociais, renderizados em grid dinâmico.
+
+---
+
+### #07 — Seção de Captação de Patrocínio & Media Kit
+- **Tipo:** `type: feat`
+- **Labels:** `scope: sponsor`, `type: feat`
+- **Milestone:** `v0.4.0 - Captação de Recursos`
+- **Esforço:** `Médio`
+- **Descrição:** Bloco de chamada para empresas parceiras com botões de download do Media Kit (pt-br / en) ativável condicionalmente conforme a fase de captação.
+
+---
+
+### #08 — Grade de Patrocinadoras por Cotas
+- **Tipo:** `type: feat`
+- **Labels:** `scope: sponsor`, `type: feat`
+- **Milestone:** `v0.4.0 - Captação de Recursos`
+- **Esforço:** `Médio`
+- **Descrição:** Estrutura pronta para exibir marcas apoiadoras organizadas por cotas (*Diamante, Ouro, Prata, Bronze, Apoio*), ativadas dinamicamente via YAML.
+
+---
+
+### #09 — Seção do Local do Evento (Venue & Informações de Parnaíba)
+- **Tipo:** `type: feat`
+- **Labels:** `scope: content`, `scope: ui/ux`
+- **Milestone:** `v0.5.0 - Experiência do Participante`
+- **Esforço:** `Médio`
+- **Descrição:** Bloco com detalhes do espaço em Parnaíba, dicas de deslocamento, hospedagem na região e mapa interativo integrado.
+
+---
+
+### #10 — Página de Palestrantes e Agenda (`/speakers.html`)
+- **Tipo:** `type: feat`
+- **Labels:** `scope: schedule`, `type: feat`
+- **Milestone:** `v0.6.0 - Grade de Programação`
+- **Esforço:** `Grande`
+- **Descrição:** Grid de palestrantes confirmados, keynotes e grade de horários integrada ao Pretalx ou lista estática.
+
+---
+
+### #11 — Modal de Boas-Vindas Comunitário
+- **Tipo:** `type: feat`
+- **Labels:** `scope: community`, `scope: ui/ux`
+- **Milestone:** `v0.5.0 - Experiência do Participante`
+- **Esforço:** `Pequeno`
+- **Descrição:** Popup acolhedor na primeira visita (com persistência em `localStorage`) destacando o Código de Conduta e avisos importantes.
+
+---
+
+### #12 — Auditoria de Acessibilidade (a11y) & SEO Final
+- **Tipo:** `type: a11y`
+- **Labels:** `type: a11y`, `scope: ui/ux`
+- **Milestone:** `v1.0.0 - Release Oficial`
+- **Esforço:** `Médio`
+- **Descrição:** Verificação de contraste de cores nos níveis WCAG AA/AAA, tags ARIA semânticas, navegação por teclado e pontuação 100 no Lighthouse.
