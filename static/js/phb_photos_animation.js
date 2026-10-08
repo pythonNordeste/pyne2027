@@ -9,16 +9,17 @@ function setBackgroundImage(index) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    let images = Array.from(
-        { length: IMAGES_COUNT },
-        (_, i) => i
-    );
-
     const container = document.querySelector('.phb-photos-carousel');
+    if (!container) return;
 
-    for (let index of images) {
-        const img = document.createElement('img');
-        img.src = getImageUrl(index);
-        container.appendChild(img);
+    // Renderiza duas sequências para loop infinito contínuo (0 a -50%)
+    for (let loop = 0; loop < 2; loop++) {
+        for (let i = 0; i < IMAGES_COUNT; i++) {
+            const img = document.createElement('img');
+            img.src = getImageUrl(i);
+            img.alt = `Parnaíba - Foto ${i + 1}`;
+            img.loading = 'lazy';
+            container.appendChild(img);
+        }
     }
 });

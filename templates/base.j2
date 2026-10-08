@@ -6,11 +6,12 @@
 {% set event_state = event.location.state if event and event.location and event.location.state else (state | default('')) %}
 {% set event_desc = event.description if event and event.description else (event_description | default('')) %}
 {% set event_url = event.url if event and event.url else ('https://' ~ event_edition ~ '.pythonnordeste.org/') %}
-{% set event_preview_image = theme.preview_image if theme and theme.preview_image else (preview_image | default('static/img/icons/palm_tree.png')) %}
-{% set event_favicon = theme.favicon if theme and theme.favicon else (favicon | default('static/img/icons/palm_tree.png')) %}
+{% set event_preview_image = theme.preview_image if theme and theme.preview_image else (preview_image | default('static/img/logo_pyne2027.png')) %}
+{% set event_favicon = theme.favicon if theme and theme.favicon else (favicon | default('static/img/favicon.png')) %}
+{% set is_indexing_allowed = (environment != 'staging') and (allow_indexing | default(true)) %}
 <head>
-    <!-- Google tag (gtag.js) -->
-    {% if google_tag %}
+    <!-- Google tag (gtag.js) - Apenas em produção quando a indexação for permitida -->
+    {% if google_tag and is_indexing_allowed %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_tag }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -25,7 +26,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="{{ event_name }} {{ event_edition }}{% if event_city %} em {{ event_city }}, {{ event_state }}{% endif %}. {{ event_desc }}">
     <meta name="keywords" content="python, {{ event_name | lower }}, programacao, pyladies, {{ event_city | lower }}, {{ event_state | lower }}, {{ event_edition }}, evento, tecnologia, inclusao">
+    
+    <!-- Controle de Indexação para Motores de Busca (Google, Bing, etc.) -->
+    {% if is_indexing_allowed %}
     <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="{{ event_url }}">
+    {% else %}
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
+    {% endif %}
+
     <meta name="author" content="Comunidade {{ event_name }}">
     
     <title>{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}</title>
@@ -45,15 +56,27 @@
     <meta name="twitter:image" content="{{ event_preview_image }}">
     <meta name="twitter:image:alt" content="Logo oficial {{ event_name }} {{ event_edition }}">
     
-    <link rel="canonical" href="{{ event_url }}">
-    <link rel="icon" href="{{ event_favicon }}" type="image/svg+xml">
+    <link rel="icon" href="{{ event_favicon }}" type="image/png">
+    <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
+
+    <!-- Google Fonts: Outfit (Display) & Plus Jakarta Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-color: {{ theme.primary_color if theme and theme.primary_color else '#306998' }};
-            --secondary-color: {{ theme.secondary_color if theme and theme.secondary_color else '#FFD43B' }};
+            --primary-color: {{ theme.primary_color if theme and theme.primary_color else '#E47A9F' }};
+            --secondary-color: {{ theme.secondary_color if theme and theme.secondary_color else '#D4638A' }};
+            --accent-color: {{ theme.accent_color if theme and theme.accent_color else '#F9F4E8' }};
+            --text-dark: {{ theme.text_dark if theme and theme.text_dark else '#2B1B22' }};
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
     </style>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="static/css/main.css">
     {% block extra_css %}
@@ -65,16 +88,32 @@
     {% endblock %}
 
     {% block footer %}
-    {% if code_of_conduct_url %}
-    <footer>
-        <p>
-            Este evento segue o 
-            <a href="{{ code_of_conduct_url }}" target="_blank" rel="noopener noreferrer">
-                Código de Conduta da Comunidade Python
-            </a>.
-        </p>
+    {% set repo_url = github_repo_url | default(social.github if social and social.github else '') %}
+    <footer id="footer">
+        <div class="footer-content">
+            {% if code_of_conduct_url %}
+            <p class="footer-cdc">
+                <i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Este evento segue o 
+                <a href="{{ code_of_conduct_url }}" target="_blank" rel="noopener noreferrer">
+                    Código de Conduta da Comunidade Python
+                </a>.
+            </p>
+            {% endif %}
+
+            {% if repo_url %}
+            <div class="footer-repo">
+                <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="footer-github-link" id="footer-github-link" aria-label="Repositório do projeto no GitHub">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    <span>Código aberto no GitHub</span>
+                </a>
+            </div>
+            {% endif %}
+
+            <p class="footer-sub">
+                {{ event_name }} {{ event_edition }} • Feito com <i class="fa-solid fa-heart footer-heart" aria-hidden="true"></i> pela comunidade
+            </p>
+        </div>
     </footer>
-    {% endif %}
     {% endblock %}
 
     {% block extra_js %}

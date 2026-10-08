@@ -1,0 +1,67 @@
+[
+  {
+    "name": "type: feat",
+    "color": "0e8a16",
+    "description": "Nova funcionalidade ou componente visual"
+  },
+  {
+    "name": "type: enhancement",
+    "color": "1d76db",
+    "description": "Melhoria em funcionalidade existente"
+  },
+  {
+    "name": "type: bug",
+    "color": "d93f0b",
+    "description": "Correção de comportamento inesperado ou erro"
+  },
+  {
+    "name": "type: docs",
+    "color": "0075ca",
+    "description": "Atualização de textos, README ou documentação"
+  },
+  {
+    "name": "type: chore",
+    "color": "7057ff",
+    "description": "Tarefas técnicas, CI/CD ou dependências"
+  },
+  {
+    "name": "type: a11y",
+    "color": "fbca04",
+    "description": "Acessibilidade (WCAG, leitores de tela, contraste)"
+  },
+  {
+    "name": "scope: ui/ux",
+    "color": "bfdadc",
+    "description": "Interface, CSS, animações e responsividade"
+  },
+  {
+    "name": "scope: content",
+    "color": "d4c5f9",
+    "description": "Textos, copies e informações do evento"
+  },
+  {
+    "name": "scope: community",
+    "color": "f9d0c4",
+    "description": "Código de conduta, voluntários e inclusão"
+  },
+  {
+    "name": "scope: sponsor",
+    "color": "fef2c0",
+    "description": "Patrocínio, cotas e media kit"
+  },
+  {
+    "name": "scope: schedule",
+    "color": "c2e0c6",
+    "description": "Programação, palestras e palestrantes"
+  },
+  {
+    "name": "good first issue",
+    "color": "7057ff",
+    "description": "Ideal para pessoas iniciando no código aberto"
+  },
+  {
+    "name": "help wanted",
+    "color": "008672",
+    "description": "Tarefa aberta aguardando contribuição"
+  }
+]

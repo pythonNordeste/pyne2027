@@ -58,6 +58,7 @@ O projeto utiliza o **[uv](https://docs.astral.sh/uv/)** para gerenciamento de d
 | --- | --- |
 | `uv run main start` | Compila o site e inicia o servidor local em `http://localhost:8000` |
 | `uv run main render` | Apenas compila as páginas e estáticos para a pasta `dist/` |
+| `uv run pytest` | Executa os testes automatizados de integridade do site |
 | `uv run ruff check` | Analisa e valida a qualidade do código Python |
 | `uv run ruff format` | Formata o código Python automaticamente |
 
@@ -87,9 +88,10 @@ Damos as boas-vindas a todas as pessoas! Se esta é a sua primeira experiência 
 
 2. **Faça suas alterações** e visualize localmente com `uv run main start`.
 
-3. **Valide a formatação do código:**
+3. **Valide a formatação e os testes locais:**
    ```bash
    uv run ruff check
+   uv run pytest
    ```
 
 4. **Faça o commit e envie sua branch:**
@@ -99,4 +101,4 @@ Damos as boas-vindas a todas as pessoas! Se esta é a sua primeira experiência 
    git push origin minha-contribuicao
    ```
 
-5. **Abra um Pull Request (PR)** apontando para a branch `dev`.
+5. **Abra um Pull Request (PR)** apontando para a branch `dev`. A CI do GitHub executará as validações automaticamente em seu PR!

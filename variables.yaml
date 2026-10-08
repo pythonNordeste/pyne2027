@@ -2,24 +2,26 @@
 event:
   name: "Python Nordeste"       # Ex: "Python Brasil", "PyLadies Day", "Caipyra"
   edition: "2027"               # Ex: "2027", "10ª Edição"
-  tagline: "O maior evento de tecnologia da região!"
-  description: "Somos um evento focado em incluir pessoas na tecnologia e disseminar a linguagem de programação Python."
+  tagline: "O maior evento de Python do Nordeste agora no litoral do Piauí!"
+  description: "Pessoas > Tecnologia"
   date: "2027"                  # Pode ser "15 a 18 de Outubro" ou "Em breve"
   format: "presencial"          # "presencial" ou "online"
   url: "https://2027.pythonnordeste.org/"
   location:
     city: "Parnaíba"
     state: "Piauí"
-    venue: "Universidade Federal" # Opcional
-    map_url: ""                   # Opcional
+    venue: ""                   # Opcional
+    map_url: ""                 # Opcional
 
 # Identidade Visual e Mídia
 theme:
-  primary_color: "#306998"     # Python Blue
-  secondary_color: "#FFD43B"   # Python Yellow
-  logo: "static/img/icons/palm_tree.png"
-  favicon: "static/img/icons/palm_tree.png"
-  preview_image: "static/img/icons/palm_tree.png"
+  primary_color: "#E47A9F"     # Rosa Dunas
+  secondary_color: "#D4638A"   # Rosa Destaque
+  accent_color: "#F9F4E8"      # Areia / Off-white
+  text_dark: "#2B1B22"         # Texto contrastante
+  logo: "static/img/pyne_emblem.png"
+  favicon: "static/img/favicon.png"
+  preview_image: "static/img/logo_pyne2027.png"
 
 # Links e Ações Principais (habilitados conforme a fase do evento)
 actions:
@@ -32,10 +34,24 @@ code_of_conduct_url: "https://apyb.python.org.br/pythonbrasil/cdc/"
 
 # Redes Sociais da Comunidade
 social:
-  instagram: ""
-  linkedin: ""
-  youtube: ""
+  instagram: "https://instagram.com/pythonnordeste"
+  linkedin: "https://linkedin.com/company/python-nordeste"
+  youtube: "https://youtube.com/@pythonnordeste"
   telegram: ""
+  github: "https://github.com/pythonNordeste/pyne2027"
 
-# Google Analytics
+# Repositório do Projeto no GitHub
+github_repo_url: "https://github.com/pythonNordeste/pyne2027"
+
+# Google Analytics (ativo apenas em produção)
 google_tag: "G-Z6HYH6HCL2"
+
+# Configuração de Ambiente e SEO
+# Use "staging" para homologação/testes sem indexação, ou "production" para o ar oficial.
+# Quando environment for "staging" ou allow_indexing for false:
+# - Motores de busca (Google, Bing, etc.) são bloqueados com <meta name="robots" content="noindex, nofollow">
+# - O arquivo robots.txt é gerado com "Disallow: /"
+# - O Google Analytics é pausado para não poluir as métricas reais
+environment: "staging"         # "staging" ou "production"
+allow_indexing: false          # Se false, impede indexação no Google / motores de busca
+

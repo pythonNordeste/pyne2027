@@ -1,0 +1,77 @@
+name: CI/CD - Produção e Deploy (main)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-test:
+    name: Testes e Build de Produção
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: Instalar Python e dependências
+        run: |
+          uv python install 3.14
+          uv sync --extra dev
+
+      - name: Verificar Lint (Ruff)
+        run: uv run ruff check .
+
+      - name: Verificar Formatação (Ruff Format)
+        run: uv run ruff format --check .
+
+      - name: Executar Testes Automatizados (Pytest)
+        run: uv run pytest -v
+
+      - name: Gerar Build de Produção (Render)
+        run: uv run main render
+
+      - name: Verificar Integridade do Site Gerado
+        run: |
+          test -f dist/index.html || (echo "dist/index.html não foi gerado!" && exit 1)
+          test -f dist/static/img/favicon.png || (echo "dist/static/img/favicon.png não foi encontrado!" && exit 1)
+          test -f dist/robots.txt || (echo "dist/robots.txt não foi gerado!" && exit 1)
+          test -f dist/.nojekyll || (echo "dist/.nojekyll não foi gerado!" && exit 1)
+
+      - name: Upload de Artefato do GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy para GitHub Pages
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
