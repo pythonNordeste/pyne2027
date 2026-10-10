@@ -65,6 +65,7 @@ body {
     max-width: 900px;
     margin: 0 auto;
     z-index: 2;
+    zoom: 0.9;
 }
 
 /* Badge de Localização e Ano */
