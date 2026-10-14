@@ -1,5 +1,8 @@
 from pathlib import Path
 
+import pytest
+
+import main
 from main import load_settings, output_folder, render, settings_file
 
 
@@ -21,7 +24,7 @@ def test_referenced_theme_assets_exist():
 
     for key in ["logo", "favicon", "preview_image"]:
         asset_path = theme.get(key)
-        if asset_path:
+        if asset_path and not asset_path.startswith("http"):
             assert Path(asset_path).exists(), (
                 f"O arquivo de tema '{key}' apontado para '{asset_path}' não existe."
             )
@@ -40,23 +43,23 @@ def test_render_generates_dist_and_index_html():
     assert "Pessoas > Tecnologia" in content
 
 
-def test_staging_environment_blocks_search_engines():
-    render()
-    robots_file = output_folder / "robots.txt"
-    assert robots_file.exists(), "O arquivo dist/robots.txt deve ser gerado."
-    assert "Disallow: /" in robots_file.read_text(), (
-        "Em staging, o robots.txt deve bloquear todos os robôs de busca."
-    )
+@pytest.fixture
+def render_with(monkeypatch):
+    """Renderiza o site sobrescrevendo chaves do variables.yaml, sem alterar o arquivo."""
 
-    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
-    assert 'content="noindex, nofollow' in index_html, (
-        "Em staging, a meta tag robots deve ser 'noindex, nofollow'."
-    )
-    assert 'name="googlebot" content="noindex, nofollow' in index_html, (
-        "Em staging, a meta tag googlebot deve ser 'noindex, nofollow'."
-    )
-    assert "googletagmanager.com/gtag/js" not in index_html, (
-        "Em staging, o Google Analytics não deve ser injetado."
+    def _render(**overrides):
+        settings = {**load_settings(), **overrides}
+        monkeypatch.setattr(main, "load_settings", lambda: settings)
+        render()
+        return settings
+
+    return _render
+
+
+def test_render_generates_github_pages_files():
+    render()
+    assert (output_folder / "robots.txt").exists(), (
+        "O arquivo dist/robots.txt deve ser gerado."
     )
     assert (output_folder / "favicon.ico").exists(), (
         "O arquivo dist/favicon.ico deve ser copiado."
@@ -64,3 +67,79 @@ def test_staging_environment_blocks_search_engines():
     assert (output_folder / ".nojekyll").exists(), (
         "O arquivo dist/.nojekyll deve ser gerado para o GitHub Pages."
     )
+
+
+@pytest.mark.parametrize(
+    "overrides",
+    [
+        {"environment": "staging", "allow_indexing": True},
+        {"environment": "production", "allow_indexing": False},
+    ],
+    ids=["staging", "production-sem-indexacao"],
+)
+def test_indexing_disabled_blocks_search_engines(render_with, overrides):
+    render_with(**overrides)
+
+    assert "Disallow: /" in (output_folder / "robots.txt").read_text(), (
+        "Sem indexação, o robots.txt deve bloquear todos os robôs de busca."
+    )
+    assert not (output_folder / "sitemap.xml").exists(), (
+        "Sem indexação, o sitemap.xml não deve ser gerado."
+    )
+
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert 'name="robots" content="noindex, nofollow' in index_html, (
+        "Sem indexação, a meta tag robots deve ser 'noindex, nofollow'."
+    )
+    assert 'name="googlebot" content="noindex, nofollow' in index_html, (
+        "Sem indexação, a meta tag googlebot deve ser 'noindex, nofollow'."
+    )
+    assert 'rel="canonical"' not in index_html
+    assert "googletagmanager.com/gtag/js" not in index_html, (
+        "Sem indexação, o Google Analytics não deve ser injetado."
+    )
+
+
+def test_production_allows_search_engines(render_with):
+    settings = render_with(environment="production", allow_indexing=True)
+    site_url = settings["event"]["url"].rstrip("/")
+
+    robots = (output_folder / "robots.txt").read_text()
+    assert "Disallow: /" not in robots, (
+        "Em produção, o robots.txt não deve bloquear os robôs de busca."
+    )
+    assert "Allow: /" in robots
+    assert f"Sitemap: {site_url}/sitemap.xml" in robots
+
+    sitemap = output_folder / "sitemap.xml"
+    assert sitemap.exists(), "Em produção, o dist/sitemap.xml deve ser gerado."
+    assert f"<loc>{site_url}/</loc>" in sitemap.read_text()
+
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert 'name="robots" content="index, follow"' in index_html
+    assert 'name="googlebot" content="index, follow' in index_html
+    assert f'rel="canonical" href="{site_url}/"' in index_html
+    if settings.get("google_tag"):
+        assert f"gtag/js?id={settings['google_tag']}" in index_html, (
+            "Em produção, o Google Analytics deve ser injetado."
+        )
+
+
+def test_social_preview_uses_absolute_image_url():
+    settings = load_settings()
+    render()
+    site_url = settings["event"]["url"].rstrip("/")
+    preview_image = settings["theme"]["preview_image"]
+    expected = (
+        preview_image
+        if preview_image.startswith("http")
+        else f"{site_url}/{preview_image.lstrip('/')}"
+    )
+
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert f'property="og:image" content="{expected}"' in index_html, (
+        "A og:image deve ser uma URL absoluta para os previews em redes sociais."
+    )
+    assert f'name="twitter:image" content="{expected}"' in index_html
+    assert 'property="og:title"' in index_html
+    assert 'name="twitter:card" content="summary_large_image"' in index_html

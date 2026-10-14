@@ -2,7 +2,7 @@ import functools
 import http.server
 import random
 import shutil
-from datetime import date
+from datetime import UTC, datetime
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -30,7 +30,7 @@ def load_settings() -> dict:
 
 def write_sitemap(site_url: str) -> None:
     """Gera dist/sitemap.xml com as páginas renderizadas (referenciado no robots.txt)."""
-    lastmod = date.today().isoformat()
+    lastmod = datetime.now(UTC).date().isoformat()
     entries = []
     for page in sorted(output_folder.glob("*.html")):
         path = "/" if page.name == "index.html" else f"/{page.name}"
