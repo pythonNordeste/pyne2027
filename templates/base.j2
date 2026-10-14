@@ -5,6 +5,8 @@
 {% set event_city = event.location.city if event and event.location and event.location.city else (city | default('')) %}
 {% set event_state = event.location.state if event and event.location and event.location.state else (state | default('')) %}
 {% set event_desc = event.description if event and event.description else (event_description | default('')) %}
+{# Descrição curta para buscadores e previews de redes sociais (event.meta_description) #}
+{% set event_meta_desc = event.meta_description if event and event.meta_description else (event_name ~ ' ' ~ event_edition ~ ((' em ' ~ event_city ~ ', ' ~ event_state) if event_city else '') ~ '. ' ~ event_desc) %}
 {% set event_url = event.url if event and event.url else ('https://' ~ event_edition ~ '.pythonnordeste.org/') %}
 {% set event_preview_image = theme.preview_image if theme and theme.preview_image else (preview_image | default('static/img/logo_pyne2027.png')) %}
 {# Redes sociais (Facebook, LinkedIn, WhatsApp, X) exigem URL absoluta na og:image #}
@@ -28,7 +30,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{ event_name }} {{ event_edition }}{% if event_city %} em {{ event_city }}, {{ event_state }}{% endif %}. {{ event_desc }}">
+    <meta name="description" content="{{ event_meta_desc }}">
     <meta name="keywords" content="python, {{ event_name | lower }}, programacao, pyladies, {{ event_city | lower }}, {{ event_state | lower }}, {{ event_edition }}, evento, tecnologia, inclusao">
     
     <!-- Controle de Indexação para Motores de Busca (Google, Bing, etc.) -->
@@ -47,7 +49,7 @@
 
     <!-- Open Graph: preview de links no Facebook, LinkedIn, WhatsApp, Telegram, etc. -->
     <meta property="og:title" content="{{ event_title }}">
-    <meta property="og:description" content="{{ event_desc }}">
+    <meta property="og:description" content="{{ event_meta_desc }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ event_url }}">
     <meta property="og:image" content="{{ event_preview_image_url }}">
@@ -65,7 +67,7 @@
     <!-- Twitter / X Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ event_title }}">
-    <meta name="twitter:description" content="{{ event_desc }}">
+    <meta name="twitter:description" content="{{ event_meta_desc }}">
     <meta name="twitter:image" content="{{ event_preview_image_url }}">
     <meta name="twitter:image:alt" content="{{ event_preview_image_alt }}">
     

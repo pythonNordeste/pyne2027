@@ -143,3 +143,23 @@ def test_social_preview_uses_absolute_image_url():
     assert f'name="twitter:image" content="{expected}"' in index_html
     assert 'property="og:title"' in index_html
     assert 'name="twitter:card" content="summary_large_image"' in index_html
+
+
+def test_meta_description_used_in_search_and_social_tags():
+    settings = load_settings()
+    meta_description = settings["event"].get("meta_description")
+    if not meta_description:
+        pytest.skip("event.meta_description não definido em variables.yaml.")
+
+    assert len(meta_description) <= 160, (
+        "event.meta_description deve ter até 160 caracteres para não ser cortada no Google."
+    )
+
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    for tag in (
+        f'name="description" content="{meta_description}"',
+        f'property="og:description" content="{meta_description}"',
+        f'name="twitter:description" content="{meta_description}"',
+    ):
+        assert tag in index_html, f"Meta tag ausente ou divergente: {tag}"
