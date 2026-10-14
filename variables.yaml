@@ -4,6 +4,9 @@ event:
   edition: "2027"               # Ex: "2027", "10ª Edição"
   tagline: "O maior evento de Python do Nordeste agora no litoral do Piauí!"
   description: "Pessoas > Tecnologia"
+  # Descrição curta usada nas meta tags (Google, og:description, twitter:description).
+  # Recomendado: até ~160 caracteres para não ser cortada nos resultados de busca.
+  meta_description: "Desde 2013, a Python Nordeste inclui pessoas na tecnologia e dissemina Python no Nordeste. Em 2027, o evento acontece em Parnaíba-PI."
   date: "2027"                  # Pode ser "15 a 18 de Outubro" ou "Em breve"
   format: "presencial"          # "presencial" ou "online"
   url: "https://2027.pythonnordeste.org/"
