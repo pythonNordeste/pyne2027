@@ -62,6 +62,40 @@ O projeto utiliza o **[uv](https://docs.astral.sh/uv/)** para gerenciamento de d
 | `uv run ruff check` | Analisa e valida a qualidade do código Python |
 | `uv run ruff format` | Formata o código Python automaticamente |
 
+## Imagens do carrossel
+
+O carrossel usa WebP em 480 e 800 px, com JPEG como fallback. As dimensões
+são reservadas antes do download para evitar deslocamentos de layout. O
+carregamento começa quando a galeria se aproxima da tela e antecipa somente
+as fotos próximas da área visível. A animação pausa enquanto a galeria está longe.
+O logo do primeiro viewport tem prioridade alta; as fotos não recebem preload.
+
+Para regenerar as variantes, instale Node.js e FFmpeg (incluindo `ffprobe`):
+
+```bash
+node scripts/optimize_images.mjs
+node --test tests/test_images.mjs
+uv run main render
+```
+
+Para usar fotos originais de maior qualidade, mantenha os nomes de `00.jpg`
+a `22.jpg` em uma pasta externa e passe o caminho ao gerador:
+
+```bash
+node scripts/optimize_images.mjs /caminho/para/originais
+```
+
+O gerador não altera os JPEG existentes nem amplia as imagens. Versione os
+WebP e o manifesto gerados junto com o código. Os JPEG atuais já passaram por
+redução e recompressão; gerar novas variantes não recupera detalhes perdidos.
+
+Os nomes WebP incluem um hash do conteúdo: mudar a foto muda a URL. O GitHub
+Pages controla os cabeçalhos HTTP e não permite definir `Cache-Control` por
+arquivo. Caso uma CDN ou outro servidor seja configurado, aplique
+`Cache-Control: public, max-age=31536000, immutable` somente aos WebP com hash.
+HTML, JavaScript e o manifesto devem revalidar o cache, pois suas URLs não
+são versionadas. Não configure cache imutável para toda a pasta `static/`.
+
 ---
 
 ## 🤝 Como contribuir
