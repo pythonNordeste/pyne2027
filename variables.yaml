@@ -21,7 +21,13 @@ theme:
   text_dark: "#2B1B22"         # Texto contrastante
   logo: "static/img/pyne_emblem.png"
   favicon: "static/img/favicon.png"
+  # Imagem do preview ao compartilhar o link em redes sociais (og:image / twitter:image).
+  # Aceita caminho relativo (convertido para URL absoluta usando event.url) ou URL completa.
+  # Recomendado: 1200x630 (ou 1920x1080), JPG/PNG, até 5MB.
   preview_image: "static/img/logo_pyne2027.png"
+  preview_image_alt: "Logo oficial da Python Nordeste 2027"
+  preview_image_width: 1920
+  preview_image_height: 1080
 
 # Links e Ações Principais (habilitados conforme a fase do evento)
 actions:
@@ -52,6 +58,6 @@ google_tag: "G-Z6HYH6HCL2"
 # - Motores de busca (Google, Bing, etc.) são bloqueados com <meta name="robots" content="noindex, nofollow">
 # - O arquivo robots.txt é gerado com "Disallow: /"
 # - O Google Analytics é pausado para não poluir as métricas reais
-environment: "staging"         # "staging" ou "production"
-allow_indexing: false          # Se false, impede indexação no Google / motores de busca
+environment: "production"      # "staging" ou "production"
+allow_indexing: true           # Se false, impede indexação no Google / motores de busca
 

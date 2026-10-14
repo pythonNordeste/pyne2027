@@ -2,7 +2,9 @@ import functools
 import http.server
 import random
 import shutil
+from datetime import UTC, datetime
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 from jinja2 import Environment, FileSystemLoader
 from typer import Typer
@@ -24,6 +26,29 @@ def load_settings() -> dict:
     if settings_file.exists():
         return safe_load(settings_file.read_text()) or {}
     return {}
+
+
+def write_sitemap(site_url: str) -> None:
+    """Gera dist/sitemap.xml com as páginas renderizadas (referenciado no robots.txt)."""
+    lastmod = datetime.now(UTC).date().isoformat()
+    entries = []
+    for page in sorted(output_folder.glob("*.html")):
+        path = "/" if page.name == "index.html" else f"/{page.name}"
+        priority = "1.0" if path == "/" else "0.8"
+        entries.append(
+            "  <url>\n"
+            f"    <loc>{escape(site_url + path)}</loc>\n"
+            f"    <lastmod>{lastmod}</lastmod>\n"
+            "    <changefreq>weekly</changefreq>\n"
+            f"    <priority>{priority}</priority>\n"
+            "  </url>"
+        )
+    (output_folder / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(entries)
+        + "\n</urlset>\n"
+    )
 
 
 @cli.command()
@@ -57,8 +82,24 @@ def render():
         robots_file.write_text("User-agent: *\nDisallow: /\n")
     else:
         site_url = settings.get("event", {}).get("url", "").rstrip("/")
-        sitemap_line = f"\nSitemap: {site_url}/sitemap.xml" if site_url else ""
-        robots_file.write_text(f"User-agent: *\nAllow: /{sitemap_line}\n")
+        # CSS, JS e imagens liberados explicitamente: o Googlebot precisa deles
+        # para renderizar a página e avaliá-la corretamente (mobile-first).
+        robots_lines = [
+            "User-agent: *",
+            "Allow: /",
+            "",
+            "User-agent: Googlebot",
+            "Allow: /",
+            "Allow: /static/",
+            "",
+            "User-agent: Googlebot-Image",
+            "Allow: /static/img/",
+            "",
+        ]
+        if site_url:
+            robots_lines.append(f"Sitemap: {site_url}/sitemap.xml")
+            write_sitemap(site_url)
+        robots_file.write_text("\n".join(robots_lines) + "\n")
 
     # Arquivo .nojekyll para o GitHub Pages servir arquivos estáticos diretamente
     (output_folder / ".nojekyll").touch()
