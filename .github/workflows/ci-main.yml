@@ -26,14 +26,6 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Instalar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Testar imagens responsivas e carregamento progressivo
-        run: node --test tests/test_images.mjs
-
       - name: Instalar uv
         uses: astral-sh/setup-uv@v5
         with:

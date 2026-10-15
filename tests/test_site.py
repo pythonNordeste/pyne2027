@@ -3,7 +3,13 @@ from pathlib import Path
 import pytest
 
 import main
-from main import load_settings, output_folder, render, settings_file
+from main import (
+    load_destination_slides,
+    load_settings,
+    output_folder,
+    render,
+    settings_file,
+)
 
 
 def test_variables_yaml_exists_and_valid():
@@ -182,18 +188,53 @@ def test_event_date_and_venue_rendered_in_hero():
     )
 
 
-def test_event_date_and_venue_rendered_in_hero():
+def test_destination_slides_reference_existing_photos():
     settings = load_settings()
-    event = settings["event"]
-    location = event["location"]
+    slides = load_destination_slides(settings)
+    assert slides, "destination.highlights deve ter ao menos uma atração."
+
+    for slide in slides:
+        assert slide.get("title") and slide.get("description") and slide.get("alt")
+        assert slide["image"].endswith(".jpg")
+        assert Path(slide["image"]).exists()
+
+
+def test_destination_carousel_rendered_with_captions():
+    slides = load_destination_slides(load_settings())
     render()
     index_html = (output_folder / "index.html").read_text(encoding="utf-8")
 
-    assert (
-        f'<time datetime="{event["start_date"]}/{event["end_date"]}">{event["date"]}</time>'
-        in index_html
-    )
-    assert (
-        f"{location['venue']}, em {location['city']}, {location['state_code']}"
-        in index_html
-    )
+    assert index_html.count('class="carousel-slide"') == len(slides)
+    assert index_html.count("data-carousel-dot=") == len(slides)
+    for slide in slides:
+        assert f'<h3 class="slide-title">{slide["title"]}</h3>' in index_html
+        assert f'<img src="{slide["image"]}"' in index_html
+
+
+def test_destination_slide_with_unknown_photo_fails():
+    settings = {"destination": {"highlights": [{"photo": "99", "title": "X"}]}}
+    with pytest.raises(ValueError, match="99"):
+        load_destination_slides(settings)
+
+
+def test_venue_section_with_map_and_photo_placeholder(render_with):
+    settings = load_settings()
+    location = {**settings["event"]["location"], "photo": ""}
+    render_with(event={**settings["event"], "location": location})
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+
+    assert '<section id="venue"' in index_html
+    assert "https://www.google.com/maps?q=" in index_html
+    assert "output=embed" in index_html
+    assert "Foto do local em breve" in index_html
+
+
+def test_venue_section_shows_photo_when_configured(render_with):
+    settings = load_settings()
+    photo = settings["theme"]["logo"]
+    location = {**settings["event"]["location"], "photo": photo, "photo_alt": "Campus"}
+    render_with(event={**settings["event"], "location": location})
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+
+    assert f'<img src="{photo}" alt="Campus"' in index_html
+    assert "Foto do local em breve" not in index_html

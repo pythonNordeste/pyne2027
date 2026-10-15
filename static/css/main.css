@@ -363,6 +363,125 @@ body {
 
 
 /* ==========================================================================
+   Venue Section (Local do Evento)
+   ========================================================================== */
+
+.venue-section {
+    padding: 5rem 1.5rem 4rem;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+.venue-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.venue-photo,
+.venue-map {
+    min-height: 360px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(43, 27, 34, 0.12);
+}
+
+.venue-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.venue-photo.is-placeholder {
+    box-shadow: none;
+    border: 2px dashed rgba(212, 99, 138, 0.45);
+    background: var(--accent-color);
+}
+
+.venue-photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    height: 100%;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.venue-photo-placeholder i {
+    font-size: 2.25rem;
+}
+
+.venue-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    border: 0;
+}
+
+.venue-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    max-width: 1100px;
+    margin: 2rem auto 0;
+}
+
+.venue-address {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    color: #55444D;
+}
+
+.venue-address i {
+    color: var(--secondary-color);
+}
+
+.venue-directions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 9999px;
+    background: var(--secondary-color);
+    color: #FFFFFF;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.venue-directions:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(212, 99, 138, 0.35);
+}
+
+.venue-directions:focus-visible {
+    outline: 3px solid var(--text-dark);
+    outline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+    .venue-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .venue-photo,
+    .venue-map,
+    .venue-map iframe {
+        min-height: 260px;
+    }
+}
+
+/* ==========================================================================
    Destination Section (Galeria de Parnaíba)
    ========================================================================== */
 
@@ -400,17 +519,6 @@ body {
     font-size: 1.05rem;
     line-height: 1.6;
     color: #55444D;
-}
-
-.phb-photos-carousel img {
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(43, 27, 34, 0.12);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.phb-photos-carousel img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 28px rgba(43, 27, 34, 0.2);
 }
 
 /* ==========================================================================
@@ -518,7 +626,8 @@ body {
         font-size: 0.85rem;
     }
 
-    .destination-section {
+    .destination-section,
+    .venue-section {
         padding: 3.5rem 1rem 2.5rem;
     }
 
