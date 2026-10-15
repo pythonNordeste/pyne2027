@@ -19,7 +19,7 @@ def test_referenced_theme_assets_exist():
     settings = load_settings()
     theme = settings.get("theme", {})
 
-    for key in ["logo", "favicon", "preview_image"]:
+    for key in ["logo", "logo_horizontal", "favicon", "preview_image"]:
         asset_path = theme.get(key)
         if asset_path:
             assert Path(asset_path).exists(), (
@@ -115,4 +115,94 @@ def test_cdc_page_rendered():
     )
     assert '<nav class="navbar" id="navbar"' in content, (
         "A navbar deve estar presente na página do CDC."
+    )
+
+
+def test_artwork_assets_exist():
+    expected_assets = [
+        "static/img/brand/logo.svg",
+        "static/img/brand/monograma.svg",
+        "static/img/brand/nordeste.svg",
+        "static/img/brand/pattern_contour.svg",
+        "static/img/casinhas/casinha_amarela.svg",
+        "static/img/casinhas/casinha_azul.svg",
+        "static/img/casinhas/casinha_coral.svg",
+        "static/img/guara/guara.png",
+        "static/img/guara/guara_up.png",
+        "static/img/guara/guara_down.png",
+        "static/js/guara_animation.js",
+    ]
+    for asset in expected_assets:
+        assert Path(asset).exists(), f"Arquivo de arte visual não encontrado: {asset}"
+
+
+def test_destination_and_casinhas_rendered():
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert '<section id="destination"' in index_html, "Seção #destination deve existir."
+    assert "casinhas-stage-card" in index_html, (
+        "Card das casinhas deve ser renderizado."
+    )
+    assert "Porto das Barcas" in index_html, "Porto das Barcas deve ser mencionado."
+    assert "casinha_amarela.svg" in index_html, "Casinha amarela deve estar no DOM."
+    assert "casinha_azul.svg" in index_html, "Casinha azul deve estar no DOM."
+    assert "casinha_coral.svg" in index_html, "Casinha coral deve estar no DOM."
+    assert "guara.png" in index_html, "Guará deve estar no DOM."
+
+
+def test_guara_animation_and_revoada_rendered():
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert "hero-guara-flock" in index_html, (
+        "Bando de guarás no Hero deve estar no DOM."
+    )
+    assert "interactive-guara" in index_html, (
+        "Mascote interativo do Guará deve estar presente."
+    )
+    assert "guara_up.png" in index_html, (
+        "Frame de asa para cima do Guará deve estar no DOM."
+    )
+    assert "guara_down.png" in index_html, (
+        "Frame de asa para baixo do Guará deve estar no DOM."
+    )
+    assert "revoada-canvas-container" in index_html, (
+        "Container da Revoada deve estar no DOM."
+    )
+    assert "revoada-toast" in index_html, "Toast da Revoada deve estar no DOM."
+    assert "static/js/guara_animation.js" in index_html, (
+        "Script guara_animation.js deve ser importado."
+    )
+
+
+def test_hero_identity_rendered():
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert "hero-contour-right" in index_html, (
+        "Elemento hero-contour-right deve estar presente no Hero."
+    )
+    assert "hero_contour_right.svg" in index_html, (
+        "Curvas topográficas oficiais hero_contour_right.svg devem ser importadas no Hero."
+    )
+    assert "hero-logo-horizontal" in index_html, (
+        "Logo horizontal oficial deve estar no Hero."
+    )
+    assert "static/img/brand/logo.svg" in index_html, (
+        "Arquivo logo.svg deve estar no src do hero-logo."
+    )
+
+
+def test_guara_navigation_companion_rendered():
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert "nav-guara-stream" in index_html, (
+        "Linha de navegação com o Guará deve estar na navbar."
+    )
+    assert "stream-guara-pilot" in index_html, (
+        "Guará piloto na navbar deve estar presente no DOM."
+    )
+    assert "guara-nav-companion" in index_html, (
+        "Guará companheiro de navegação flutuante deve estar no DOM."
+    )
+    assert "btn-guara-top" in index_html, (
+        "Botão de voar ao topo do Guará deve estar presente."
     )

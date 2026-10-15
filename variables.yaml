@@ -19,9 +19,12 @@ theme:
   secondary_color: "#D4638A"   # Rosa Destaque
   accent_color: "#F9F4E8"      # Areia / Off-white
   text_dark: "#2B1B22"         # Texto contrastante
-  logo: "static/img/pyne_emblem.png"
+  logo: "static/img/brand/monograma.svg"
+  logo_horizontal: "static/img/brand/logo.svg"
   favicon: "static/img/favicon.png"
   preview_image: "static/img/logo_pyne2027.png"
+  guara: "static/img/guara/guara.png"
+  nordeste: "static/img/brand/nordeste.svg"
 
 # Links e Ações Principais (habilitados conforme a fase do evento)
 actions:
@@ -70,6 +73,28 @@ about:
     - number: "100%"
       label: "Feito pela Comunidade"
       icon: "fa-solid fa-heart"
+
+# Seção Destino / Parnaíba (Porto das Barcas, Delta e Litoral)
+destination:
+  tag: "Destino 2027"
+  title: "Parnaíba espera por você"
+  subtitle: "O litoral do Piauí combina natureza exuberante, dunas paradisíacas e o acolhimento caloroso da nossa comunidade."
+  highlights:
+    - title: "Porto das Barcas"
+      tag: "História & Cultura"
+      image: "static/img/casinhas/casinha_amarela.svg"
+      badge: "Séc. XIX"
+      description: "Às margens do Rio Igaraçu, casarões coloniais abrigam artesanato, museus e culinária típica no coração histórico da cidade."
+    - title: "Delta do Parnaíba"
+      tag: "Santuário Ecológico"
+      image: "static/img/guara/guara.png"
+      badge: "Revoada dos Guarás"
+      description: "O único delta em mar aberto das Américas. Ao entardecer, bandos de guarás-vermelhos colorem as ilhas fluviais em um espetáculo inesquecível."
+    - title: "Dunas & Litoral Piauiense"
+      tag: "Natureza & Lazer"
+      image: "static/img/casinhas/casinha_azul.svg"
+      badge: "Lagoa do Portinho"
+      description: "Dunas de areia fina, lagoas de água doce e praias com ventos constantes, perfeitas para recarregar as energias entre as trilhas do evento."
 
 # Redes Sociais da Comunidade
 social:
