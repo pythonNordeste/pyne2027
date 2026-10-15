@@ -202,108 +202,111 @@
         </div>
     </section>
     {% endif %}
+    {# =========================================================================
+       [EM ESPERA] Seção Destino com Casinhas do Porto das Barcas & Guará Interativo
+       Comentada para manter a versão oficial de produção (Destino 2027 da main).
+       Não remover — preservada para reativação futura.
+
     <!-- Seção Destino Parnaíba (Porto das Barcas, Delta e Litoral) -->
-    <section id="destination" class="destination-section">
-        <div class="destination-container">
-            <div class="section-header">
-                <span class="section-tag"><i class="fa-solid fa-compass" aria-hidden="true"></i> {{ destination.tag if destination and destination.tag else 'Destino ' ~ event.edition }}</span>
-                <h2 class="section-title"><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i> {{ destination.title if destination and destination.title else 'Parnaíba espera por você' }}</h2>
-                <p class="section-subtitle">
-                    {{ destination.subtitle if destination and destination.subtitle else 'O litoral do Piauí combina natureza exuberante, dunas paradisíacas e o acolhimento caloroso da nossa comunidade.' }}
-                </p>
-            </div>
-
-            <!-- Panorama Ilustrado: Casinhas Históricas do Porto das Barcas & Guará -->
-            <div class="casinhas-stage-card">
-                <div class="casinhas-stage-header">
-                    <span class="stage-tag"><i class="fa-solid fa-landmark" aria-hidden="true"></i> Centro Histórico & Delta</span>
-                    <p class="stage-desc">Às margens do Rio Igaraçu, casarões coloniais do século XIX encontram o santuário ecológico do Delta do Parnaíba.</p>
-                </div>
-
-                <div class="casinhas-stage-scenery">
-                    <!-- Guará interativo com asas batendo e balão de fala -->
-                    <div class="guara-perch-element" id="interactive-guara" role="button" tabindex="0" aria-label="Guará-vermelho interativo, clique para ver a revoada">
-                        <div class="guara-speech-bubble" id="guara-speech">
-                            <span class="speech-text">Clique em mim para a Revoada! 🪶</span>
-                            <span class="speech-tail"></span>
-                        </div>
-                        <div class="guara-stage-flapper">
-                            <div class="guara-flapper">
-                                <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
-                                <img src="static/img/guara/guara_down.png" alt="Guará-vermelho" class="guara-frame frame-down" />
-                            </div>
-                        </div>
-                        <button class="btn-trigger-revoada" id="btn-revoada" title="Disparar Revoada dos Guarás">
-                            <i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> Revoada dos Guarás
-                        </button>
-                    </div>
-
-                    <!-- Fachadas das Casinhas Coloniais do Porto das Barcas -->
-                    <div class="casinhas-street" aria-label="Fachadas coloniais do Porto das Barcas">
-                        <div class="casinha-card casinha-coral" title="Casinha Colonial Coral - Porto das Barcas">
-                            <img src="static/img/casinhas/casinha_coral.svg" alt="Casinha colonial coral" class="casinha-vector" />
-                            <span class="casinha-caption">Artesanato & Memória</span>
-                        </div>
-                        <div class="casinha-card casinha-amarela" title="Casinha Colonial Amarela - Porto das Barcas">
-                            <img src="static/img/casinhas/casinha_amarela.svg" alt="Casinha colonial amarela" class="casinha-vector" />
-                            <span class="casinha-caption">Porto das Barcas</span>
-                        </div>
-                        <div class="casinha-card casinha-azul" title="Casinha Colonial Azul - Porto das Barcas">
-                            <img src="static/img/casinhas/casinha_azul.svg" alt="Casinha colonial azul" class="casinha-vector" />
-                            <span class="casinha-caption">Cultura Piauiense</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Linha d'água / Dunas na base das casinhas -->
-                    <div class="casinhas-waterfront" aria-hidden="true">
-                        <div class="water-wave wave-1"></div>
-                        <div class="water-wave wave-2"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carrossel de atrações de Parnaíba e região -->
-            {% if destination_slides %}
-            <div class="destination-carousel" id="destination-carousel" role="region" aria-roledescription="carrossel" aria-label="Atrações de Parnaíba e região">
-                <div class="carousel-viewport">
-                    <ul class="carousel-track" tabindex="0" aria-label="Fotos e descrições das atrações">
-                        {% for slide in destination_slides %}
-                        <li class="carousel-slide" id="destination-slide-{{ loop.index }}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} de {{ loop.length }}: {{ slide.title }}">
-                            <figure class="slide-card">
-                                <div class="slide-media">
-                                    <img src="{{ slide.image }}" alt="{{ slide.alt or slide.title }}" loading="lazy" decoding="async">
-                                </div>
-                                <figcaption class="slide-caption">
-                                    <span class="slide-counter" aria-hidden="true">{{ '%02d' % loop.index }} / {{ '%02d' % loop.length }}</span>
-                                    <h3 class="slide-title">{{ slide.title }}</h3>
-                                    <p class="slide-description">{{ slide.description }}</p>
-                                </figcaption>
-                            </figure>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <!-- Controles: exibidos apenas quando o JavaScript está ativo -->
-                <div class="carousel-controls" hidden>
-                    <button type="button" class="carousel-button" data-carousel-prev aria-controls="destination-carousel" aria-label="Atração anterior">
-                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                    </button>
-                    <div class="carousel-dots">
-                        {% for slide in destination_slides %}
-                        <button type="button" class="carousel-dot" data-carousel-dot="{{ loop.index0 }}" aria-controls="destination-slide-{{ loop.index }}" aria-label="Ir para {{ slide.title }}"></button>
-                        {% endfor %}
-                    </div>
-                    <button type="button" class="carousel-button" data-carousel-next aria-controls="destination-carousel" aria-label="Próxima atração">
-                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="carousel-button carousel-toggle" data-carousel-toggle aria-label="Pausar troca automática">
-                        <i class="fa-solid fa-pause" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-            {% endif %}
+    <div class="casinhas-stage-card">
+        <div class="casinhas-stage-header">
+            <span class="stage-tag"><i class="fa-solid fa-landmark" aria-hidden="true"></i> Centro Histórico & Delta</span>
+            <p class="stage-desc">Às margens do Rio Igaraçu, casarões coloniais do século XIX encontram o santuário ecológico do Delta do Parnaíba.</p>
         </div>
+
+        <div class="casinhas-stage-scenery">
+            <!-- Guará interativo com asas batendo e balão de fala -->
+            <div class="guara-perch-element" id="interactive-guara" role="button" tabindex="0" aria-label="Guará-vermelho interativo, clique para ver a revoada">
+                <div class="guara-speech-bubble" id="guara-speech">
+                    <span class="speech-text">Clique em mim para a Revoada! 🪶</span>
+                    <span class="speech-tail"></span>
+                </div>
+                <div class="guara-stage-flapper">
+                    <div class="guara-flapper">
+                        <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                        <img src="static/img/guara/guara_down.png" alt="Guará-vermelho" class="guara-frame frame-down" />
+                    </div>
+                </div>
+                <button class="btn-trigger-revoada" id="btn-revoada" title="Disparar Revoada dos Guarás">
+                    <i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> Revoada dos Guarás
+                </button>
+            </div>
+
+            <!-- Fachadas das Casinhas Coloniais do Porto das Barcas -->
+            <div class="casinhas-street" aria-label="Fachadas coloniais do Porto das Barcas">
+                <div class="casinha-card casinha-coral" title="Casinha Colonial Coral - Porto das Barcas">
+                    <img src="static/img/casinhas/casinha_coral.svg" alt="Casinha colonial coral" class="casinha-vector" />
+                    <span class="casinha-caption">Artesanato & Memória</span>
+                </div>
+                <div class="casinha-card casinha-amarela" title="Casinha Colonial Amarela - Porto das Barcas">
+                    <img src="static/img/casinhas/casinha_amarela.svg" alt="Casinha colonial amarela" class="casinha-vector" />
+                    <span class="casinha-caption">Porto das Barcas</span>
+                </div>
+                <div class="casinha-card casinha-azul" title="Casinha Colonial Azul - Porto das Barcas">
+                    <img src="static/img/casinhas/casinha_azul.svg" alt="Casinha colonial azul" class="casinha-vector" />
+                    <span class="casinha-caption">Cultura Piauiense</span>
+                </div>
+            </div>
+            
+            <!-- Linha d'água / Dunas na base das casinhas -->
+            <div class="casinhas-waterfront" aria-hidden="true">
+                <div class="water-wave wave-1"></div>
+                <div class="water-wave wave-2"></div>
+            </div>
+        </div>
+    </div>
+    ========================================================================= #}
+
+    <!-- Carrossel de atrações de Parnaíba e região -->
+    <section id="destination" class="destination-section">
+        <div class="section-header">
+            <span class="section-tag"><i class="fa-solid fa-compass" aria-hidden="true"></i> Destino {{ event.edition }}</span>
+            <h2 class="section-title"><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i> Parnaíba espera por você</h2>
+            <p class="section-subtitle">
+                O litoral do Piauí combina natureza exuberante, dunas paradisíacas e o acolhimento caloroso da nossa comunidade.
+            </p>
+        </div>
+
+        {% if destination_slides %}
+        <div class="destination-carousel" id="destination-carousel" role="region" aria-roledescription="carrossel" aria-label="Atrações de Parnaíba e região">
+            <div class="carousel-viewport">
+                <ul class="carousel-track" tabindex="0" aria-label="Fotos e descrições das atrações">
+                    {% for slide in destination_slides %}
+                    <li class="carousel-slide" id="destination-slide-{{ loop.index }}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} de {{ loop.length }}: {{ slide.title }}">
+                        <figure class="slide-card">
+                            <div class="slide-media">
+                                <img src="{{ slide.image }}" alt="{{ slide.alt or slide.title }}" loading="lazy" decoding="async">
+                            </div>
+                            <figcaption class="slide-caption">
+                                <span class="slide-counter" aria-hidden="true">{{ '%02d' % loop.index }} / {{ '%02d' % loop.length }}</span>
+                                <h3 class="slide-title">{{ slide.title }}</h3>
+                                <p class="slide-description">{{ slide.description }}</p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Controles: exibidos apenas quando o JavaScript está ativo -->
+            <div class="carousel-controls" hidden>
+                <button type="button" class="carousel-button" data-carousel-prev aria-controls="destination-carousel" aria-label="Atração anterior">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <div class="carousel-dots">
+                    {% for slide in destination_slides %}
+                    <button type="button" class="carousel-dot" data-carousel-dot="{{ loop.index0 }}" aria-controls="destination-slide-{{ loop.index }}" aria-label="Ir para {{ slide.title }}"></button>
+                    {% endfor %}
+                </div>
+                <button type="button" class="carousel-button" data-carousel-next aria-controls="destination-carousel" aria-label="Próxima atração">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="carousel-button carousel-toggle" data-carousel-toggle aria-label="Pausar troca automática">
+                    <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        {% endif %}
     </section>
 
     <!-- Local do Evento: foto e mapa -->

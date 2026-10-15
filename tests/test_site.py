@@ -145,6 +145,9 @@ def test_artwork_assets_exist():
         assert Path(asset).exists(), f"Arquivo de arte visual não encontrado: {asset}"
 
 
+@pytest.mark.skip(
+    reason="Seção de casinhas do Porto das Barcas comentada no template para manter o Destino da main"
+)
 def test_destination_and_casinhas_rendered():
     render()
     index_html = (output_folder / "index.html").read_text(encoding="utf-8")
@@ -164,9 +167,6 @@ def test_guara_animation_and_revoada_rendered():
     index_html = (output_folder / "index.html").read_text(encoding="utf-8")
     assert "hero-guara-flock" in index_html, (
         "Bando de guarás no Hero deve estar no DOM."
-    )
-    assert "interactive-guara" in index_html, (
-        "Mascote interativo do Guará deve estar presente."
     )
     assert "guara_up.png" in index_html, (
         "Frame de asa para cima do Guará deve estar no DOM."
