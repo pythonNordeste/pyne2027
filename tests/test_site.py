@@ -64,3 +64,55 @@ def test_staging_environment_blocks_search_engines():
     assert (output_folder / ".nojekyll").exists(), (
         "O arquivo dist/.nojekyll deve ser gerado para o GitHub Pages."
     )
+
+
+def test_navbar_rendered_and_responsive():
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert '<nav class="navbar" id="navbar"' in index_html, (
+        "A navbar deve existir no DOM."
+    )
+    assert 'id="navbar-toggle"' in index_html, (
+        "O botão de menu hambúrguer deve existir."
+    )
+    assert 'href="index.html#about"' in index_html, (
+        "Link para a seção Sobre deve estar na navbar."
+    )
+    assert 'href="cdc.html"' in index_html, (
+        "Link para o Código de Conduta deve estar na navbar."
+    )
+    assert "static/js/navbar.js" in index_html, "O script navbar.js deve ser importado."
+
+
+def test_about_section_rendered():
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+    assert '<section id="about"' in index_html, "A seção #about deve ser renderizada."
+    assert "Sobre a Python Nordeste" in index_html, (
+        "O título da seção Sobre deve estar presente."
+    )
+    assert "Anos de História" in index_html, (
+        "Card de estatística de anos de história deve existir."
+    )
+    assert "Estados Nordestinos" in index_html, (
+        "Card de estados nordestinos deve existir."
+    )
+
+
+def test_cdc_page_rendered():
+    render()
+    cdc_html = output_folder / "cdc.html"
+    assert cdc_html.exists(), "A página dist/cdc.html deve ser gerada automaticamente."
+    content = cdc_html.read_text(encoding="utf-8")
+    assert "Código de Conduta" in content, (
+        "Título do Código de Conduta deve estar presente."
+    )
+    assert "conduta@pythonnordeste.org" in content, (
+        "E-mail de denúncia do CDC deve estar presente."
+    )
+    assert "Voltar à Página Inicial" in content, (
+        "Link de retorno para a página inicial deve existir."
+    )
+    assert '<nav class="navbar" id="navbar"' in content, (
+        "A navbar deve estar presente na página do CDC."
+    )

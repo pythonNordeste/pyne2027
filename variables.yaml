@@ -31,6 +31,45 @@ actions:
 
 # Código de Conduta (obrigatório em eventos da comunidade)
 code_of_conduct_url: "https://apyb.python.org.br/pythonbrasil/cdc/"
+code_of_conduct:
+  page_url: "cdc.html"
+  report_email: "conduta@pythonnordeste.org"
+  official_url: "https://apyb.python.org.br/pythonbrasil/cdc/"
+
+# Configuração da Barra de Navegação
+nav:
+  links:
+    - label: "Início"
+      url: "index.html#hero"
+    - label: "Sobre"
+      url: "index.html#about"
+    - label: "Destino"
+      url: "index.html#destination"
+    - label: "Código de Conduta"
+      url: "cdc.html"
+
+# Seção Sobre a Python Nordeste
+about:
+  tag: "Comunidade & História"
+  title: "Sobre a Python Nordeste"
+  subtitle: "Mais de uma década conectando pessoas, impulsionando carreiras e celebrando a tecnologia aberta em todo o Nordeste."
+  paragraphs:
+    - "A Python Nordeste é a maior conferência regional da comunidade Python na América Latina. Realizada anualmente de forma itinerante há mais de 10 anos, já percorreu capitais e cidades do interior por todos os 9 estados nordestinos, fomentando a troca livre de conhecimento, a formação de novas lideranças e o acolhimento caloroso de pessoas iniciantes na computação."
+    - "Em 2027, pela primeira vez em sua história, a Python Nordeste desembarca no litoral do Piauí! Parnaíba — portal do exuberante Delta das Américas e polo educacional e tecnológico em plena expansão — será o ponto de encontro para dias inesquecíveis de palestras, tutoriais práticos, sprints comunitários e conexões que duram a vida toda."
+    - "Guiada pelo lema histórico «Pessoas > Tecnologia», a PyNE é construída inteiramente por voluntárias e voluntários, com compromisso inegociável com a diversidade, inclusão, equidade e respeito mútuo, sob o Código de Conduta oficial da Comunidade Python."
+  stats:
+    - number: "10+"
+      label: "Anos de História"
+      icon: "fa-solid fa-calendar-days"
+    - number: "9"
+      label: "Estados Nordestinos"
+      icon: "fa-solid fa-map-location-dot"
+    - number: "1ª"
+      label: "Vez no Litoral do Piauí"
+      icon: "fa-solid fa-umbrella-beach"
+    - number: "100%"
+      label: "Feito pela Comunidade"
+      icon: "fa-solid fa-heart"
 
 # Redes Sociais da Comunidade
 social:

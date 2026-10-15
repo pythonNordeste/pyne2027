@@ -39,7 +39,7 @@
 
     <meta name="author" content="Comunidade {{ event_name }}">
     
-    <title>{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}</title>
+    <title>{% block title %}{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}{% endblock %}</title>
     
     <meta property="og:title" content="{{ event_name }} {{ event_edition }}{% if event_city %} | {{ event_city }} - {{ event_state }}{% endif %}">
     <meta property="og:description" content="{{ event_desc }}">
@@ -84,17 +84,84 @@
 
 </head>
 <body>
+    {% block navbar %}
+    {% set repo_url = github_repo_url | default(social.github if social and social.github else '') %}
+    <header id="site-header" class="site-header">
+        <nav class="navbar" id="navbar" aria-label="Navegação Principal">
+            <div class="navbar-container">
+                <a href="index.html#hero" class="navbar-brand" aria-label="{{ event_name }} {{ event_edition }}">
+                    <img src="{{ theme.logo }}" alt="Logo Oficial {{ event_name }}" class="navbar-logo" width="38" height="38">
+                    <span class="navbar-brand-text">{{ event_name }} <span class="navbar-edition">{{ event_edition }}</span></span>
+                </a>
+
+                <div class="navbar-menu" id="navbar-menu">
+                    <ul class="navbar-links">
+                        {% if nav and nav.links %}
+                            {% for link in nav.links %}
+                            <li><a href="{{ link.url }}" class="nav-link">{{ link.label }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <li><a href="index.html#hero" class="nav-link">Início</a></li>
+                            <li><a href="index.html#about" class="nav-link">Sobre</a></li>
+                            <li><a href="index.html#destination" class="nav-link">Destino</a></li>
+                            <li><a href="cdc.html" class="nav-link">Código de Conduta</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="navbar-actions">
+                        <div class="navbar-social">
+                            {% if social.instagram %}
+                            <a href="{{ social.instagram }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="Instagram da PyNE">
+                                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                            {% if social.linkedin %}
+                            <a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="LinkedIn da PyNE">
+                                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                            {% if social.youtube %}
+                            <a href="{{ social.youtube }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="YouTube da PyNE">
+                                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                            {% if repo_url %}
+                            <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="Repositório do projeto no GitHub">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+
+                        {% if actions and actions.tickets_url %}
+                        <a href="{{ actions.tickets_url }}" target="_blank" rel="noopener noreferrer" class="btn-nav-cta">
+                            <i class="fa-solid fa-ticket" aria-hidden="true"></i> Ingressos
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <button class="navbar-toggle" id="navbar-toggle" aria-expanded="false" aria-controls="navbar-menu" aria-label="Alternar menu de navegação">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
     {% block content %}
     {% endblock %}
 
     {% block footer %}
     {% set repo_url = github_repo_url | default(social.github if social and social.github else '') %}
+    {% set cdc_link = 'cdc.html' if code_of_conduct and code_of_conduct.page_url else (code_of_conduct_url | default('#')) %}
     <footer id="footer">
         <div class="footer-content">
-            {% if code_of_conduct_url %}
+            {% if cdc_link %}
             <p class="footer-cdc">
                 <i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Este evento segue o 
-                <a href="{{ code_of_conduct_url }}" target="_blank" rel="noopener noreferrer">
+                <a href="{{ cdc_link }}">
                     Código de Conduta da Comunidade Python
                 </a>.
             </p>
@@ -116,6 +183,7 @@
     </footer>
     {% endblock %}
 
+    <script src="static/js/navbar.js"></script>
     {% block extra_js %}
     {% endblock %}
 </body>

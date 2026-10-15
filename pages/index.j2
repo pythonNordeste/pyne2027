@@ -95,6 +95,52 @@
         </div>
     </section>
 
+    <!-- Seção Sobre a Python Nordeste (Issue #02) -->
+    {% if about %}
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="section-header">
+                {% if about.tag %}
+                <span class="section-tag"><i class="fa-solid fa-users" aria-hidden="true"></i> {{ about.tag }}</span>
+                {% endif %}
+                <h2 class="section-title"><i class="fa-solid fa-seedling" aria-hidden="true"></i> {{ about.title }}</h2>
+                {% if about.subtitle %}
+                <p class="section-subtitle">{{ about.subtitle }}</p>
+                {% endif %}
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text-column">
+                    {% for paragraph in about.paragraphs %}
+                    <p class="about-paragraph">{{ paragraph }}</p>
+                    {% endfor %}
+                    <div class="about-quote-card">
+                        <i class="fa-solid fa-quote-left quote-icon" aria-hidden="true"></i>
+                        <p class="quote-text">Não estamos aqui apenas por código. Estamos aqui pelas conexões humanas que o código torna possíveis.</p>
+                        <span class="quote-author">— Comunidade Python</span>
+                    </div>
+                </div>
+
+                {% if about.stats %}
+                <div class="about-stats-column">
+                    <div class="stats-grid">
+                        {% for stat in about.stats %}
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper">
+                                <i class="{{ stat.icon }}" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-number">{{ stat.number }}</div>
+                            <div class="stat-label">{{ stat.label }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
     <!-- Galeria de Fotos de Parnaíba -->
     <section id="destination" class="destination-section">
         <div class="section-header">
