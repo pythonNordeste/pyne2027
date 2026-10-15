@@ -1,4 +1,5 @@
 import functools
+import hashlib
 import http.server
 import random
 import shutil
@@ -21,6 +22,16 @@ city_photos_folder = static_folder / "img" / "city"
 cli = Typer(no_args_is_help=True)
 environment = Environment(loader=FileSystemLoader(searchpath=pages_folder.parent))
 environment.filters["shuffle"] = lambda seq: random.sample(list(seq), k=len(seq))
+
+
+def versioned(path: str) -> str:
+    """Anexa ?v=<hash do conteúdo> ao asset para invalidar o cache do navegador a cada mudança."""
+    asset = Path(__file__).parent / path.removeprefix("./")
+    digest = hashlib.sha256(asset.read_bytes()).hexdigest()[:10]
+    return f"{path}?v={digest}"
+
+
+environment.filters["versioned"] = versioned
 
 
 def load_settings() -> dict:

@@ -1,7 +1,7 @@
 {% extends "templates/base.j2" %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="./static/css/destination_carousel.css">
+    <link rel="stylesheet" href="{{ './static/css/destination_carousel.css' | versioned }}">
 {% endblock %}
 
 {% block content %}
@@ -231,6 +231,6 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="./static/js/destination_carousel.js"></script>
-    <script src="./static/js/hero_animations.js"></script>
+    <script src="{{ './static/js/destination_carousel.js' | versioned }}"></script>
+    <script src="{{ './static/js/hero_animations.js' | versioned }}"></script>
 {% endblock %}

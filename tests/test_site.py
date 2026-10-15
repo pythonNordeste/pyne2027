@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 import pytest
@@ -238,3 +239,14 @@ def test_venue_section_shows_photo_when_configured(render_with):
 
     assert f'<img src="{photo}" alt="Campus"' in index_html
     assert "Foto do local em breve" not in index_html
+
+
+def test_local_css_and_js_are_versioned_for_cache_busting():
+    render()
+    html = (output_folder / "index.html").read_text()
+    local_assets = re.findall(r'(?:href|src)="(\.?/?static/[^"]+\.(?:css|js)[^"]*)"', html)
+    assert local_assets, "Nenhum CSS/JS local encontrado no index.html."
+    for asset in local_assets:
+        assert re.search(r"\?v=[0-9a-f]{10}$", asset), (
+            f"O asset '{asset}' não tem ?v=<hash>; o navegador pode servir uma versão antiga do cache."
+        )
