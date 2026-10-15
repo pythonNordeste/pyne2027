@@ -62,6 +62,22 @@ O projeto utiliza o **[uv](https://docs.astral.sh/uv/)** para gerenciamento de d
 | `uv run ruff check` | Analisa e valida a qualidade do código Python |
 | `uv run ruff format` | Formata o código Python automaticamente |
 
+## Carrossel de atrações
+
+A seção "Parnaíba espera por você" mostra um carrossel com foto e descrição das
+principais atrações da cidade e da região. Para editar os textos, a ordem ou as
+fotos, altere `destination.highlights` em `variables.yaml`; cada item aponta
+para uma foto JPEG de `static/img/city/` pelo número (`"01"` → `01.jpg`).
+
+Os slides são gerados no HTML (bons para SEO e funcionam sem JavaScript, como
+uma faixa rolável), e as fotos usam carregamento lazy nativo do navegador. O
+JavaScript adiciona setas, indicadores, navegação pelo teclado e troca
+automática, que pausa fora da tela, ao passar o mouse, ao focar e pelo botão de
+pausa. Quem prefere menos movimento começa com ela pausada.
+
+Ao adicionar fotos, comprima-as antes (JPEG com qualidade ~75 e até ~1200 px de
+largura é suficiente).
+
 ---
 
 ## 🤝 Como contribuir

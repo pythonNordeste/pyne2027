@@ -1,7 +1,7 @@
 {% extends "templates/base.j2" %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="./static/css/phb_photos_animation.css">
+    <link rel="stylesheet" href="./static/css/destination_carousel.css">
 {% endblock %}
 
 {% block content %}
@@ -57,6 +57,8 @@
                         class="hero-logo-horizontal"
                         id="hero-logo"
                         loading="eager"
+                        fetchpriority="high"
+                        decoding="async"
                     />
                 </div>
                 <h1 class="sr-only">{{ event.name }} {{ event.edition }}</h1>
@@ -72,6 +74,34 @@
                 <p class="hero-description">{{ event.description }}</p>
                 {% endif %}
             </div>
+
+            <!-- Data e Local do Evento -->
+            {% set location = event.location or {} %}
+            {% if event.date or location.venue %}
+            <ul class="event-details hero-animate-3" aria-label="Data e local do evento">
+                {% if event.date %}
+                <li class="event-detail">
+                    <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                    {% if event.start_date %}
+                    <time datetime="{{ event.start_date }}{% if event.end_date %}/{{ event.end_date }}{% endif %}">{{ event.date }}</time>
+                    {% else %}
+                    <span>{{ event.date }}</span>
+                    {% endif %}
+                </li>
+                {% endif %}
+                {% if location.venue %}
+                {% set venue_text = location.venue ~ ((', em ' ~ location.city ~ ', ' ~ (location.state_code or location.state)) if location.city else '') %}
+                <li class="event-detail">
+                    <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                    {% if location.map_url %}
+                    <a href="{{ location.map_url }}" target="_blank" rel="noopener noreferrer"{% if location.venue_full_name %} title="{{ location.venue_full_name }}"{% endif %}>{{ venue_text }}</a>
+                    {% else %}
+                    <span{% if location.venue_full_name %} title="{{ location.venue_full_name }}"{% endif %}>{{ venue_text }}</span>
+                    {% endif %}
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
 
             <!-- Botões de Ação Condicionais -->
             {% if actions and (actions.tickets_url or actions.call_for_papers_url) %}
@@ -172,7 +202,6 @@
         </div>
     </section>
     {% endif %}
-
     <!-- Seção Destino Parnaíba (Porto das Barcas, Delta e Litoral) -->
     <section id="destination" class="destination-section">
         <div class="destination-container">
@@ -233,41 +262,100 @@
                 </div>
             </div>
 
-            <!-- Destaques da Experiência em Parnaíba -->
-            {% if destination and destination.highlights %}
-            <div class="destination-highlights-grid">
-                {% for item in destination.highlights %}
-                <div class="dest-highlight-card">
-                    <div class="dest-icon-banner">
-                        <img src="{{ item.image }}" alt="{{ item.title }}" class="dest-art-icon" />
-                        {% if item.badge %}
-                        <span class="dest-pill-badge">{{ item.badge }}</span>
-                        {% endif %}
-                    </div>
-                    <div class="dest-card-body">
-                        <span class="dest-category">{{ item.tag }}</span>
-                        <h3 class="dest-card-title">{{ item.title }}</h3>
-                        <p class="dest-card-text">{{ item.description }}</p>
-                    </div>
+            <!-- Carrossel de atrações de Parnaíba e região -->
+            {% if destination_slides %}
+            <div class="destination-carousel" id="destination-carousel" role="region" aria-roledescription="carrossel" aria-label="Atrações de Parnaíba e região">
+                <div class="carousel-viewport">
+                    <ul class="carousel-track" tabindex="0" aria-label="Fotos e descrições das atrações">
+                        {% for slide in destination_slides %}
+                        <li class="carousel-slide" id="destination-slide-{{ loop.index }}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} de {{ loop.length }}: {{ slide.title }}">
+                            <figure class="slide-card">
+                                <div class="slide-media">
+                                    <img src="{{ slide.image }}" alt="{{ slide.alt or slide.title }}" loading="lazy" decoding="async">
+                                </div>
+                                <figcaption class="slide-caption">
+                                    <span class="slide-counter" aria-hidden="true">{{ '%02d' % loop.index }} / {{ '%02d' % loop.length }}</span>
+                                    <h3 class="slide-title">{{ slide.title }}</h3>
+                                    <p class="slide-description">{{ slide.description }}</p>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                {% endfor %}
+
+                <!-- Controles: exibidos apenas quando o JavaScript está ativo -->
+                <div class="carousel-controls" hidden>
+                    <button type="button" class="carousel-button" data-carousel-prev aria-controls="destination-carousel" aria-label="Atração anterior">
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="carousel-dots">
+                        {% for slide in destination_slides %}
+                        <button type="button" class="carousel-dot" data-carousel-dot="{{ loop.index0 }}" aria-controls="destination-slide-{{ loop.index }}" aria-label="Ir para {{ slide.title }}"></button>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="carousel-button" data-carousel-next aria-controls="destination-carousel" aria-label="Próxima atração">
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="carousel-button carousel-toggle" data-carousel-toggle aria-label="Pausar troca automática">
+                        <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
             {% endif %}
-
-            <!-- Galeria Fotográfica de Parnaíba -->
-            <div class="phb-gallery-container">
-                <div class="phb-gallery-title-wrap">
-                    <span class="phb-gallery-badge"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i> Paisagens e Cenários Reais</span>
-                    <h3 class="phb-gallery-heading">Explore o Litoral Piauiense</h3>
-                </div>
-                <div class="phb-photos" id="phb-photos">
-                    <div class="phb-photos-carousel">
-                        <!-- Imagens injetadas via JavaScript -->
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
+
+    <!-- Local do Evento: foto e mapa -->
+    {% set location = event.location or {} %}
+    {% if location.venue %}
+    <section id="venue" class="venue-section">
+        <div class="section-header">
+            <span class="section-tag"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Local do evento</span>
+            <h2 class="section-title"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> {{ location.venue }}</h2>
+            {% if location.venue_full_name %}
+            <p class="section-subtitle">{{ location.venue_full_name }}</p>
+            {% endif %}
+        </div>
+
+        <div class="venue-grid">
+            <figure class="venue-photo{% if not location.photo %} is-placeholder{% endif %}">
+                {% if location.photo %}
+                <img src="{{ location.photo }}" alt="{{ location.photo_alt or ('Foto da ' ~ location.venue) }}" loading="lazy" decoding="async">
+                {% else %}
+                <div class="venue-photo-placeholder">
+                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                    <span>Foto do local em breve</span>
+                </div>
+                {% endif %}
+            </figure>
+
+            {% set map_query = location.map_query or (location.venue ~ ', ' ~ location.city ~ ' - ' ~ (location.state_code or location.state)) %}
+            <div class="venue-map">
+                <iframe
+                    src="https://www.google.com/maps?q={{ map_query | urlencode }}&amp;output=embed"
+                    title="Mapa com a localização da {{ location.venue }}"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="venue-info">
+            <p class="venue-address">
+                <i class="fa-solid fa-map-pin" aria-hidden="true"></i>
+                <span>
+                    {% if location.address %}{{ location.address }}, {% endif %}{{ location.city }} - {{ location.state_code or location.state }}
+                </span>
+            </p>
+            {% if location.map_url %}
+            <a href="{{ location.map_url }}" target="_blank" rel="noopener noreferrer" class="venue-directions">
+                <i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> Como chegar
+            </a>
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
 
     <!-- Camada Dinâmica da Revoada dos Guarás (Easter Egg) -->
     <div id="revoada-canvas-container" class="revoada-container" aria-hidden="true"></div>
@@ -282,6 +370,6 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="./static/js/phb_photos_animation.js"></script>
+    <script src="./static/js/destination_carousel.js"></script>
     <script src="./static/js/hero_animations.js"></script>
 {% endblock %}
