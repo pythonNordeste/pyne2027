@@ -244,7 +244,9 @@ def test_venue_section_shows_photo_when_configured(render_with):
 def test_local_css_and_js_are_versioned_for_cache_busting():
     render()
     html = (output_folder / "index.html").read_text()
-    local_assets = re.findall(r'(?:href|src)="(\.?/?static/[^"]+\.(?:css|js)[^"]*)"', html)
+    local_assets = re.findall(
+        r'(?:href|src)="(\.?/?static/[^"]+\.(?:css|js)[^"]*)"', html
+    )
     assert local_assets, "Nenhum CSS/JS local encontrado no index.html."
     for asset in local_assets:
         assert re.search(r"\?v=[0-9a-f]{10}$", asset), (
