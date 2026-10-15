@@ -59,7 +59,9 @@ def render_with(monkeypatch):
         render()
         return settings
 
-    return _render
+    yield _render
+    monkeypatch.undo()
+    render()
 
 
 def test_render_generates_github_pages_files():
@@ -366,7 +368,7 @@ def test_venue_section_with_map_and_photo_placeholder(render_with):
     index_html = (output_folder / "index.html").read_text(encoding="utf-8")
 
     assert '<section id="venue"' in index_html
-    assert "https://www.google.com/maps?q=" in index_html
+    assert "maps.google.com/maps?q=" in index_html
     assert "output=embed" in index_html
     assert "Foto do local em breve" in index_html
 

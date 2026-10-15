@@ -336,7 +336,7 @@
             {% set map_query = location.map_query or (location.venue ~ ', ' ~ location.city ~ ' - ' ~ (location.state_code or location.state)) %}
             <div class="venue-map">
                 <iframe
-                    src="https://www.google.com/maps?q={{ map_query | urlencode }}&amp;output=embed"
+                    src="https://maps.google.com/maps?q={{ map_query | urlencode }}&amp;output=embed"
                     title="Mapa com a localização da {{ location.venue }}"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"

@@ -132,6 +132,8 @@ nav:
       url: "index.html#about"
     - label: "Destino"
       url: "index.html#destination"
+    - label: "Local"
+      url: "index.html#venue"
     - label: "Código de Conduta"
       url: "cdc.html"
 
