@@ -163,3 +163,37 @@ def test_meta_description_used_in_search_and_social_tags():
         f'name="twitter:description" content="{meta_description}"',
     ):
         assert tag in index_html, f"Meta tag ausente ou divergente: {tag}"
+
+
+def test_event_date_and_venue_rendered_in_hero():
+    settings = load_settings()
+    event = settings["event"]
+    location = event["location"]
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+
+    assert (
+        f'<time datetime="{event["start_date"]}/{event["end_date"]}">{event["date"]}</time>'
+        in index_html
+    )
+    assert (
+        f"{location['venue']}, em {location['city']}, {location['state_code']}"
+        in index_html
+    )
+
+
+def test_event_date_and_venue_rendered_in_hero():
+    settings = load_settings()
+    event = settings["event"]
+    location = event["location"]
+    render()
+    index_html = (output_folder / "index.html").read_text(encoding="utf-8")
+
+    assert (
+        f'<time datetime="{event["start_date"]}/{event["end_date"]}">{event["date"]}</time>'
+        in index_html
+    )
+    assert (
+        f"{location['venue']}, em {location['city']}, {location['state_code']}"
+        in index_html
+    )

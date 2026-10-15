@@ -199,6 +199,46 @@ body {
     color: rgba(255, 255, 255, 0.95);
 }
 
+/* Data e Local do Evento */
+.event-details {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: -0.5rem 0 2.25rem;
+}
+
+.event-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 14px;
+    background: rgba(43, 27, 34, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.event-detail i {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+}
+
+.event-detail a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+.event-detail a:hover,
+.event-detail a:focus-visible {
+    text-decoration-thickness: 2px;
+}
+
 /* Botões de Ação */
 .action-buttons {
     display: flex;
@@ -480,6 +520,11 @@ body {
 
     .destination-section {
         padding: 3.5rem 1rem 2.5rem;
+    }
+
+    .event-detail {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
     }
 }
 

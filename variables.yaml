@@ -6,15 +6,19 @@ event:
   description: "Pessoas > Tecnologia"
   # Descrição curta usada nas meta tags (Google, og:description, twitter:description).
   # Recomendado: até ~160 caracteres para não ser cortada nos resultados de busca.
-  meta_description: "Desde 2013, a Python Nordeste inclui pessoas na tecnologia e dissemina Python no Nordeste. Em 2027, o evento acontece em Parnaíba-PI."
-  date: "2027"                  # Pode ser "15 a 18 de Outubro" ou "Em breve"
+  meta_description: "Desde 2013, a Python Nordeste inclui pessoas na tecnologia e dissemina Python no Nordeste. Em 2027: de 13 a 15 de agosto, na UFDPar, em Parnaíba-PI."
+  date: "13, 14 e 15 de agosto de 2027"  # Texto exibido no site. Pode ser "Em breve"
+  start_date: "2027-08-13"      # Formato AAAA-MM-DD (opcional, usado no <time> para buscadores)
+  end_date: "2027-08-15"        # Formato AAAA-MM-DD (opcional)
   format: "presencial"          # "presencial" ou "online"
   url: "https://2027.pythonnordeste.org/"
   location:
     city: "Parnaíba"
     state: "Piauí"
-    venue: ""                   # Opcional
-    map_url: ""                 # Opcional
+    state_code: "PI"
+    venue: "UFDPar"             # Opcional
+    venue_full_name: "Universidade Federal do Delta do Parnaíba"  # Opcional
+    map_url: "https://www.google.com/maps/search/?api=1&query=UFDPar+Parna%C3%ADba+PI"  # Opcional
 
 # Identidade Visual e Mídia
 theme:

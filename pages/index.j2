@@ -46,6 +46,34 @@
                 {% endif %}
             </div>
 
+            <!-- Data e Local do Evento -->
+            {% set location = event.location or {} %}
+            {% if event.date or location.venue %}
+            <ul class="event-details hero-animate-3" aria-label="Data e local do evento">
+                {% if event.date %}
+                <li class="event-detail">
+                    <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                    {% if event.start_date %}
+                    <time datetime="{{ event.start_date }}{% if event.end_date %}/{{ event.end_date }}{% endif %}">{{ event.date }}</time>
+                    {% else %}
+                    <span>{{ event.date }}</span>
+                    {% endif %}
+                </li>
+                {% endif %}
+                {% if location.venue %}
+                {% set venue_text = location.venue ~ ((', em ' ~ location.city ~ ', ' ~ (location.state_code or location.state)) if location.city else '') %}
+                <li class="event-detail">
+                    <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                    {% if location.map_url %}
+                    <a href="{{ location.map_url }}" target="_blank" rel="noopener noreferrer"{% if location.venue_full_name %} title="{{ location.venue_full_name }}"{% endif %}>{{ venue_text }}</a>
+                    {% else %}
+                    <span{% if location.venue_full_name %} title="{{ location.venue_full_name }}"{% endif %}>{{ venue_text }}</span>
+                    {% endif %}
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+
             <!-- Botões de Ação Condicionais -->
             {% if actions and (actions.tickets_url or actions.call_for_papers_url) %}
             <div class="action-buttons hero-animate-4">
