@@ -6,15 +6,25 @@ event:
   description: "Pessoas > Tecnologia"
   # Descrição curta usada nas meta tags (Google, og:description, twitter:description).
   # Recomendado: até ~160 caracteres para não ser cortada nos resultados de busca.
-  meta_description: "Desde 2013, a Python Nordeste inclui pessoas na tecnologia e dissemina Python no Nordeste. Em 2027, o evento acontece em Parnaíba-PI."
-  date: "2027"                  # Pode ser "15 a 18 de Outubro" ou "Em breve"
+  meta_description: "Desde 2013, a Python Nordeste inclui pessoas na tecnologia e dissemina Python no Nordeste. Em 2027: de 13 a 15 de agosto, na UFDPar, em Parnaíba-PI."
+  date: "13, 14 e 15 de agosto de 2027"  # Texto exibido no site. Pode ser "Em breve"
+  start_date: "2027-08-13"      # Formato AAAA-MM-DD (opcional, usado no <time> para buscadores)
+  end_date: "2027-08-15"        # Formato AAAA-MM-DD (opcional)
   format: "presencial"          # "presencial" ou "online"
   url: "https://2027.pythonnordeste.org/"
   location:
     city: "Parnaíba"
     state: "Piauí"
-    venue: ""                   # Opcional
-    map_url: ""                 # Opcional
+    state_code: "PI"
+    venue: "UFDPar"             # Opcional
+    venue_full_name: "Universidade Federal do Delta do Parnaíba"  # Opcional
+    map_url: "https://www.google.com/maps/search/?api=1&query=UFDPar+Parna%C3%ADba+PI"  # Opcional
+    address: "Av. São Sebastião, 2819 - Nossa Senhora de Fátima"  # Opcional
+    # Busca usada no mapa incorporado da seção "Local do evento" (opcional).
+    map_query: "UFDPar - Universidade Federal do Delta do Parnaíba, Parnaíba - PI"
+    # Foto do local (opcional). Enquanto estiver vazio, a seção mostra um espaço reservado.
+    photo: "static/img/ufdpar.jpg"
+    photo_alt: "Totem de entrada da UFDPar com o nome e o brasão da universidade, sob céu azul"  # Descrição da foto para leitores de tela
 
 # Identidade Visual e Mídia
 theme:
@@ -31,6 +41,68 @@ theme:
   preview_image_alt: "Logo oficial da Python Nordeste 2027"
   preview_image_width: 1920
   preview_image_height: 1080
+
+# Carrossel "Parnaíba espera por você": atrações da cidade e da região.
+# "photo" é o número da foto em static/img/city/ (ex.: "01" -> 01.jpg).
+# "alt" descreve a imagem para leitores de tela; "description" aparece na legenda.
+destination:
+  highlights:
+    - photo: "01"
+      title: "Delta do Parnaíba"
+      description: "Único delta em mar aberto das Américas, com dezenas de ilhas, igarapés e dunas entre o Piauí e o Maranhão. O passeio de barco é o programa obrigatório de quem visita a cidade."
+      alt: "Vista aérea de um barco navegando por um rio largo cercado de manguezais, com o mar ao fundo"
+    - photo: "21"
+      title: "Revoada dos guarás"
+      description: "No fim da tarde, bandos de guarás, aves de plumagem vermelha intensa, cruzam o céu do Delta de volta aos manguezais. Um dos espetáculos mais marcantes da região."
+      alt: "Bando de guarás vermelhos voando sobre a água, com dunas ao fundo"
+    - photo: "10"
+      title: "Manguezais e igarapés"
+      description: "Os passeios atravessam canais estreitos entre raízes de mangue, berçário de caranguejos, peixes e aves. Dá para conhecer de perto o ecossistema que sustenta o Delta."
+      alt: "Raízes aéreas entrelaçadas de um manguezal sobre a água"
+    - photo: "12"
+      title: "Dunas e lagoas"
+      description: "Dunas brancas que se encontram com o mar e formam lagoas de água doce na estação chuvosa. A paisagem continua até os Lençóis Maranhenses, na Rota das Emoções."
+      alt: "Vista aérea de uma faixa de dunas brancas entre o mar e lagoas esverdeadas"
+    - photo: "05"
+      title: "Passeios pelas dunas"
+      description: "De buggy, 4x4 ou a pé, os passeios levam a mirantes onde a areia termina direto na água, com vista para o rio, o mar e as ilhas do Delta."
+      alt: "Duna de areia clara terminando em água azul, com um veículo de passeio no alto"
+    - photo: "16"
+      title: "Porto das Barcas"
+      description: "Antigo porto às margens do Rio Igaraçu, hoje o coração cultural de Parnaíba: casarões históricos com restaurantes, bares, lojas de artesanato e o pôr do sol à beira do rio."
+      alt: "Casarão histórico com torre laranja à margem do rio ao entardecer"
+    - photo: "07"
+      title: "Centro histórico"
+      description: "Casarões e fachadas ornamentadas contam a história de Parnaíba, que foi um importante entreposto comercial do Nordeste. Vale caminhar sem pressa pelas ruas do centro."
+      alt: "Fachada histórica com três portas de madeira emolduradas por ornamentos em relevo"
+    - photo: "03"
+      title: "Parnaíba à noite"
+      description: "As torres da Catedral de Nossa Senhora da Graça despontam no centro da cidade, que tem vida noturna animada e boa comida regional, do caranguejo ao peixe fresco."
+      alt: "Vista noturna da cidade com as torres de uma igreja iluminadas em primeiro plano"
+    - photo: "00"
+      title: "Artesanato local"
+      description: "Peças em madeira, palha de carnaúba, cerâmica e renda traduzem a criatividade de artesãs e artesãos da região. Ótimas lembranças para levar para casa."
+      alt: "Esculturas de madeira representando figuras populares carregando cestos"
+    - photo: "20"
+      title: "Quadrilhódromo"
+      description: "Palco das quadrilhas juninas de Parnaíba, com murais que celebram o bumba-meu-boi e a cultura popular. Na época do São João, o espaço reúne grupos, forró e comidas típicas, e o resto do ano a praça segue como ponto de encontro da cidade."
+      alt: "Vista aérea noturna do Quadrilhódromo, com a praça movimentada e o galpão decorado por murais coloridos"
+    - photo: "19"
+      title: "Praia da Pedra do Sal"
+      description: "Um farol sobre as rochas separa dois mares: de um lado, águas calmas; do outro, ondas que atraem surfistas e praticantes de kitesurf."
+      alt: "Vista aérea de uma ponta rochosa com farol entre duas praias, uma de mar calmo e outra de mar agitado"
+    - photo: "18"
+      title: "Litoral do Piauí"
+      description: "Perto de Parnaíba ficam praias como Atalaia, Coqueiro e Barra Grande, com ventos constantes, lagoas e pores do sol inesquecíveis."
+      alt: "Pôr do sol dourado sob um céu cheio de nuvens em uma praia extensa"
+    - photo: "15"
+      title: "Carnaubais"
+      description: "A carnaúba, conhecida como árvore da vida, está por toda parte na paisagem do Piauí. Dela vêm a cera, a palha do artesanato e a madeira das construções tradicionais."
+      alt: "Silhueta de carnaúbas contra o sol se pondo em um céu alaranjado"
+    - photo: "22"
+      title: "Entardecer no Delta"
+      description: "O dia termina com o céu colorido e as aves voltando para as árvores. Bem-vinda e bem-vindo a Parnaíba: esperamos você na Python Nordeste 2027!"
+      alt: "Silhueta de árvores do mangue e um bando de aves voando no céu do entardecer"
 
 # Links e Ações Principais (habilitados conforme a fase do evento)
 actions:

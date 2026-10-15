@@ -15,6 +15,7 @@ pages_folder = Path(__file__).parent / "pages"
 templates_folder = Path(__file__).parent / "templates"
 static_folder = Path(__file__).parent / "static"
 output_folder = Path(__file__).parent / "dist"
+city_photos_folder = static_folder / "img" / "city"
 
 
 cli = Typer(no_args_is_help=True)
@@ -26,6 +27,22 @@ def load_settings() -> dict:
     if settings_file.exists():
         return safe_load(settings_file.read_text()) or {}
     return {}
+
+
+def load_destination_slides(settings: dict) -> list[dict]:
+    """Associa cada item de destination.highlights à sua foto em static/img/city/."""
+    highlights = (settings.get("destination") or {}).get("highlights") or []
+    slides = []
+    for highlight in highlights:
+        photo = city_photos_folder / f"{str(highlight['photo']).zfill(2)}.jpg"
+        if not photo.exists():
+            raise ValueError(
+                f"Foto '{photo.name}' de destination.highlights não existe em {city_photos_folder}."
+            )
+        slides.append(
+            {**highlight, "image": photo.relative_to(Path(__file__).parent).as_posix()}
+        )
+    return slides
 
 
 def write_sitemap(site_url: str) -> None:
@@ -55,6 +72,7 @@ def write_sitemap(site_url: str) -> None:
 def render():
     """Gera os arquivos HTML estáticos na pasta dist."""
     settings = load_settings()
+    settings["destination_slides"] = load_destination_slides(settings)
 
     if output_folder.exists():
         shutil.rmtree(output_folder)
