@@ -32,7 +32,7 @@ theme:
   secondary_color: "#D4638A"   # Rosa Destaque
   accent_color: "#F9F4E8"      # Areia / Off-white
   text_dark: "#2B1B22"         # Texto contrastante
-  logo: "static/img/brand/monograma.svg"
+  logo: "static/img/favicon.png"
   logo_horizontal: "static/img/brand/logo.svg"
   favicon: "static/img/favicon.png"
   # Imagem do preview ao compartilhar o link em redes sociais (og:image / twitter:image).
@@ -143,9 +143,7 @@ about:
   title: "Sobre a Python Nordeste"
   subtitle: "Mais de uma década conectando pessoas, impulsionando carreiras e celebrando a tecnologia aberta em todo o Nordeste."
   paragraphs:
-    - "A Python Nordeste é a maior conferência regional da comunidade Python na América Latina. Realizada anualmente de forma itinerante há mais de 10 anos, já percorreu capitais e cidades do interior por todos os 9 estados nordestinos, fomentando a troca livre de conhecimento, a formação de novas lideranças e o acolhimento caloroso de pessoas iniciantes na computação."
-    - "Em 2027, pela primeira vez em sua história, a Python Nordeste desembarca no litoral do Piauí! Parnaíba — portal do exuberante Delta das Américas e polo educacional e tecnológico em plena expansão — será o ponto de encontro para dias inesquecíveis de palestras, tutoriais práticos, sprints comunitários e conexões que duram a vida toda."
-    - "Guiada pelo lema histórico «Pessoas > Tecnologia», a PyNE é construída inteiramente por voluntárias e voluntários, com compromisso inegociável com a diversidade, inclusão, equidade e respeito mútuo, sob o Código de Conduta oficial da Comunidade Python."
+    - "Há mais de 10 anos conectando talentos e celebrando a tecnologia aberta, a Python Nordeste é a maior conferência regional da comunidade Python na América Latina. Itinerante e guiada pelo lema <strong class=\"motto-highlight\">«Pessoas > Tecnologia»</strong>, o evento já percorreu todos os 9 estados da região promovendo conhecimento, diversidade e inclusão. Em 2027, desembarca pela primeira vez no litoral do Piauí, em Parnaíba, para uma edição histórica de palestras, tutoriais e conexões que transformam carreiras."
   stats:
     - number: "10+"
       label: "Anos de História"

@@ -1482,6 +1482,29 @@ section[id], article[id] {
     color: #403037;
 }
 
+.motto-highlight {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--text-dark);
+    background: linear-gradient(135deg, rgba(228, 122, 159, 0.20) 0%, rgba(212, 99, 138, 0.12) 100%);
+    padding: 0.12rem 0.6rem;
+    margin: 0 0.15rem;
+    border-radius: 8px;
+    border: 1px solid rgba(228, 122, 159, 0.38);
+    box-shadow: 0 2px 6px rgba(228, 122, 159, 0.10);
+    letter-spacing: -0.01em;
+    vertical-align: baseline;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.motto-highlight:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(228, 122, 159, 0.30) 0%, rgba(212, 99, 138, 0.20) 100%);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(228, 122, 159, 0.22);
+    color: #1A0D14;
+}
+
 .about-quote-card {
     position: relative;
     background: #FAF6EF;

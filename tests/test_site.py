@@ -92,6 +92,10 @@ def test_navbar_rendered_and_responsive():
     assert 'href="cdc.html"' in index_html, (
         "Link para o Código de Conduta deve estar na navbar."
     )
+    assert 'class="navbar-logo"' in index_html, "A logo deve estar presente na navbar."
+    assert 'src="static/img/favicon.png"' in index_html, (
+        "O ícone do favicon deve ser utilizado no header/navbar."
+    )
     assert "static/js/navbar.js" in index_html, "O script navbar.js deve ser importado."
 
 
@@ -107,6 +111,12 @@ def test_about_section_rendered():
     )
     assert "Estados Nordestinos" in index_html, (
         "Card de estados nordestinos deve existir."
+    )
+    assert 'class="motto-highlight"' in index_html, (
+        "O lema deve estar destacado com a classe motto-highlight."
+    )
+    assert "«Pessoas > Tecnologia»" in index_html, (
+        "O lema «Pessoas > Tecnologia» deve estar presente na seção Sobre."
     )
 
 

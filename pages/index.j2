@@ -171,7 +171,7 @@
             <div class="about-grid">
                 <div class="about-text-column">
                     {% for paragraph in about.paragraphs %}
-                    <p class="about-paragraph">{{ paragraph }}</p>
+                    <p class="about-paragraph">{{ paragraph | safe }}</p>
                     {% endfor %}
                     <div class="about-quote-card">
                         <div class="quote-watermark" aria-hidden="true">
