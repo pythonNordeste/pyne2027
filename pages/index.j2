@@ -8,35 +8,64 @@
 <main id="main-content">
     <!-- Hero Section com Identidade Visual PyNE 2027 -->
     <section id="hero" class="hero-section">
+        <!-- Revoada de Guarás no Céu do Hero (Voo dos 3 pássaros oficiais) -->
+        <div class="hero-guara-flock" aria-hidden="true">
+            <div class="flock-bird bird-lead" title="Guará líder">
+                <div class="guara-flapper">
+                    <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                    <img src="static/img/guara/guara_down.png" alt="" class="guara-frame frame-down" />
+                </div>
+            </div>
+            <div class="flock-bird bird-wing-top" title="Guará asa superior">
+                <div class="guara-flapper">
+                    <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                    <img src="static/img/guara/guara_down.png" alt="" class="guara-frame frame-down" />
+                </div>
+            </div>
+            <div class="flock-bird bird-wing-bottom" title="Guará asa inferior">
+                <div class="guara-flapper">
+                    <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                    <img src="static/img/guara/guara_down.png" alt="" class="guara-frame frame-down" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Curvas de nível topográficas oficiais na lateral direita (Exata ID Visual) -->
+        <div class="hero-contour-right" aria-hidden="true">
+            <img src="static/img/brand/hero_contour_right.svg" alt="" class="hero-contour-right-svg" />
+        </div>
+
         <div class="hero-container">
             
-            <!-- Badge de Localização e Ano -->
+            <!-- Badge de Localização e Ano com Guará -->
             {% if event.location and event.location.city %}
             <div class="location-badge hero-animate-1">
-                <i class="fa-solid fa-location-dot badge-pin" aria-hidden="true"></i>
+                <span class="badge-guara-avatar" title="Guará-vermelho, guardião do Delta">
+                    <img src="static/img/guara/guara.png" alt="" class="badge-guara-img" />
+                </span>
                 <span class="badge-text">{{ event.location.city }}, {{ event.location.state }} • {{ event.edition }}</span>
+                <span class="badge-tag-pill">Delta do Parnaíba</span>
             </div>
             {% endif %}
 
-            <!-- Logo Oficial PyNE 2027 com levitação e suporte a 3D tilt -->
-            <div class="logo-wrapper hero-animate-2">
+            <!-- Logo Oficial Horizontal PyNE 2027 com levitação e suporte a 3D tilt -->
+            <div class="hero-brand-lockup hero-animate-2">
                 <div class="logo-tilt-container" id="logo-tilt">
                     <img 
-                        src="{{ theme.logo }}" 
+                        src="{{ theme.logo_horizontal | default('static/img/brand/logo.svg') }}" 
                         alt="Logo Oficial {{ event.name }} {{ event.edition }}" 
-                        class="hero-logo"
+                        class="hero-logo-horizontal"
                         id="hero-logo"
                         loading="eager"
                         fetchpriority="high"
                         decoding="async"
                     />
                 </div>
+                <h1 class="sr-only">{{ event.name }} {{ event.edition }}</h1>
             </div>
 
             <!-- Título e Subtítulo -->
             <div class="hero-text-content hero-animate-3">
-                <h1 class="hero-title">{{ event.name }} <span class="edition-highlight">{{ event.edition }}</span></h1>
-                
                 {% if event.tagline %}
                 <p class="hero-tagline">{{ event.tagline }}</p>
                 {% endif %}
@@ -125,6 +154,109 @@
         </div>
     </section>
 
+    <!-- Seção Sobre a Python Nordeste (Issue #02) -->
+    {% if about %}
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <div class="section-header">
+                {% if about.tag %}
+                <span class="section-tag"><i class="fa-solid fa-users" aria-hidden="true"></i> {{ about.tag }}</span>
+                {% endif %}
+                <h2 class="section-title"><i class="fa-solid fa-seedling" aria-hidden="true"></i> {{ about.title }}</h2>
+                {% if about.subtitle %}
+                <p class="section-subtitle">{{ about.subtitle }}</p>
+                {% endif %}
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text-column">
+                    {% for paragraph in about.paragraphs %}
+                    <p class="about-paragraph">{{ paragraph | safe }}</p>
+                    {% endfor %}
+                    <div class="about-quote-card">
+                        <div class="quote-watermark" aria-hidden="true">
+                            <img src="static/img/brand/nordeste.svg" alt="" />
+                        </div>
+                        <i class="fa-solid fa-quote-left quote-icon" aria-hidden="true"></i>
+                        <p class="quote-text">Não estamos aqui apenas por código. Estamos aqui pelas conexões humanas que o código torna possíveis.</p>
+                        <span class="quote-author">— Comunidade Python</span>
+                    </div>
+                </div>
+
+                {% if about.stats %}
+                <div class="about-stats-column">
+                    <div class="stats-grid">
+                        {% for stat in about.stats %}
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper">
+                                <i class="{{ stat.icon }}" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-number">{{ stat.number }}</div>
+                            <div class="stat-label">{{ stat.label }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    {# =========================================================================
+       [EM ESPERA] Seção Destino com Casinhas do Porto das Barcas & Guará Interativo
+       Comentada para manter a versão oficial de produção (Destino 2027 da main).
+       Não remover — preservada para reativação futura.
+
+    <!-- Seção Destino Parnaíba (Porto das Barcas, Delta e Litoral) -->
+    <div class="casinhas-stage-card">
+        <div class="casinhas-stage-header">
+            <span class="stage-tag"><i class="fa-solid fa-landmark" aria-hidden="true"></i> Centro Histórico & Delta</span>
+            <p class="stage-desc">Às margens do Rio Igaraçu, casarões coloniais do século XIX encontram o santuário ecológico do Delta do Parnaíba.</p>
+        </div>
+
+        <div class="casinhas-stage-scenery">
+            <!-- Guará interativo com asas batendo e balão de fala -->
+            <div class="guara-perch-element" id="interactive-guara" role="button" tabindex="0" aria-label="Guará-vermelho interativo, clique para ver a revoada">
+                <div class="guara-speech-bubble" id="guara-speech">
+                    <span class="speech-text">Clique em mim para a Revoada! 🪶</span>
+                    <span class="speech-tail"></span>
+                </div>
+                <div class="guara-stage-flapper">
+                    <div class="guara-flapper">
+                        <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                        <img src="static/img/guara/guara_down.png" alt="Guará-vermelho" class="guara-frame frame-down" />
+                    </div>
+                </div>
+                <button class="btn-trigger-revoada" id="btn-revoada" title="Disparar Revoada dos Guarás">
+                    <i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> Revoada dos Guarás
+                </button>
+            </div>
+
+            <!-- Fachadas das Casinhas Coloniais do Porto das Barcas -->
+            <div class="casinhas-street" aria-label="Fachadas coloniais do Porto das Barcas">
+                <div class="casinha-card casinha-coral" title="Casinha Colonial Coral - Porto das Barcas">
+                    <img src="static/img/casinhas/casinha_coral.svg" alt="Casinha colonial coral" class="casinha-vector" />
+                    <span class="casinha-caption">Artesanato & Memória</span>
+                </div>
+                <div class="casinha-card casinha-amarela" title="Casinha Colonial Amarela - Porto das Barcas">
+                    <img src="static/img/casinhas/casinha_amarela.svg" alt="Casinha colonial amarela" class="casinha-vector" />
+                    <span class="casinha-caption">Porto das Barcas</span>
+                </div>
+                <div class="casinha-card casinha-azul" title="Casinha Colonial Azul - Porto das Barcas">
+                    <img src="static/img/casinhas/casinha_azul.svg" alt="Casinha colonial azul" class="casinha-vector" />
+                    <span class="casinha-caption">Cultura Piauiense</span>
+                </div>
+            </div>
+            
+            <!-- Linha d'água / Dunas na base das casinhas -->
+            <div class="casinhas-waterfront" aria-hidden="true">
+                <div class="water-wave wave-1"></div>
+                <div class="water-wave wave-2"></div>
+            </div>
+        </div>
+    </div>
+    ========================================================================= #}
+
     <!-- Carrossel de atrações de Parnaíba e região -->
     <section id="destination" class="destination-section">
         <div class="section-header">
@@ -204,7 +336,7 @@
             {% set map_query = location.map_query or (location.venue ~ ', ' ~ location.city ~ ' - ' ~ (location.state_code or location.state)) %}
             <div class="venue-map">
                 <iframe
-                    src="https://www.google.com/maps?q={{ map_query | urlencode }}&amp;output=embed"
+                    src="https://maps.google.com/maps?q={{ map_query | urlencode }}&amp;output=embed"
                     title="Mapa com a localização da {{ location.venue }}"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
@@ -227,6 +359,16 @@
         </div>
     </section>
     {% endif %}
+
+    <!-- Camada Dinâmica da Revoada dos Guarás (Easter Egg) -->
+    <div id="revoada-canvas-container" class="revoada-container" aria-hidden="true"></div>
+    <div id="revoada-toast" class="revoada-toast" role="status" aria-live="polite">
+        <i class="fa-solid fa-feather-pointed toast-icon" aria-hidden="true"></i>
+        <div class="toast-content">
+            <strong class="toast-title">Revoada no Delta das Américas!</strong>
+            <span class="toast-msg">O espetáculo do Guará-vermelho em Parnaíba • Pessoas &gt; Tecnologia</span>
+        </div>
+    </div>
 </main>
 {% endblock %}
 

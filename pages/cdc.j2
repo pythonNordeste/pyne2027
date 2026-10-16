@@ -1,0 +1,189 @@
+{% extends "templates/base.j2" %}
+
+{% block title %}Código de Conduta | {{ event_name }} {{ event_edition }}{% endblock %}
+
+{% block content %}
+<main id="main-content" class="cdc-page">
+    <!-- Header do Código de Conduta -->
+    <header class="cdc-hero-section">
+        <div class="cdc-hero-container">
+            <a href="index.html" class="cdc-back-btn" id="cdc-back-btn">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar à Página Inicial
+            </a>
+            
+            <div class="cdc-hero-badge">
+                <i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Diretriz Oficial da Comunidade
+            </div>
+
+            <h1 class="cdc-title">Código de Conduta</h1>
+            <p class="cdc-lead">
+                A <strong>{{ event_name }} {{ event_edition }}</strong> é dedicada a proporcionar uma experiência livre de assédio, acolhedora, inclusiva e segura para todas as pessoas, independentemente de idade, gênero, orientação sexual, deficiência, aparência física, etnia, raça ou crença religiosa.
+            </p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Integral do Documento -->
+    <article class="cdc-article-container">
+        
+        <!-- Cartão de Acesso Rápido a Incidentes -->
+        <div class="cdc-alert-card" id="como-denunciar">
+            <div class="alert-icon">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            </div>
+            <div class="alert-content">
+                <h3>Precisa de Ajuda ou Quer Reportar um Incidente?</h3>
+                <p>
+                    Se você estiver sofrendo assédio, presenciou alguma violação a estas diretrizes ou tem dúvidas sobre sua segurança, entre em contato imediatamente com a Comissão de Resposta a Incidentes.
+                </p>
+                <div class="alert-actions">
+                    {% set email_cdc = code_of_conduct.report_email if code_of_conduct and code_of_conduct.report_email else 'conduta@pythonnordeste.org' %}
+                    <a href="mailto:{{ email_cdc }}" class="btn-cdc-report">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i> Enviar E-mail: {{ email_cdc }}
+                    </a>
+                </div>
+                <small class="alert-note">
+                    <i class="fa-solid fa-lock" aria-hidden="true"></i> Todas as comunicações são tratadas com sigilo absoluto e prioridade máxima pela organização.
+                </small>
+            </div>
+        </div>
+
+        <section class="cdc-content-section">
+            <h2 class="cdc-section-heading">
+                <span class="heading-number">1</span> Nosso Propósito & Valores
+            </h2>
+            <p>
+                A Python Nordeste acredita no lema <strong class="motto-highlight">«Pessoas > Tecnologia»</strong>. Mais do que linguagens, frameworks ou arquiteturas de software, nossa comunidade é feita de seres humanos. Valorizamos o compartilhamento generoso de conhecimento, a empatia entre pares e a construção de um espaço onde todas as pessoas se sintam respeitadas, bem-vindas e incentivadas a crescer.
+            </p>
+            <p>
+                Não toleramos nenhuma forma de assédio, discriminação, constrangimento ou desrespeito em nossas atividades presenciais ou virtuais.
+            </p>
+        </section>
+
+        <section class="cdc-content-section">
+            <h2 class="cdc-section-heading">
+                <span class="heading-number">2</span> Comportamentos Esperados
+            </h2>
+            <p>Incentivamos e esperamos que todas as pessoas participantes, palestrantes, organizadoras, voluntárias e patrocinadoras adotem as seguintes práticas:</p>
+            <ul class="cdc-checklist">
+                <li>
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <div>
+                        <strong>Ser gentil e respeitoso(a):</strong> Use linguagem acolhedora, respeitosa e inclusiva em todas as conversas, apresentações e interações sociais.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <div>
+                        <strong>Valorizar a diversidade de perspectivas:</strong> Respeite diferentes pontos de vista, experiências de vida e níveis técnicos de experiência.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <div>
+                        <strong>Aceitar críticas construtivas graciosamente:</strong> Esteja aberto(a) a ouvir, aprender e evoluir continuamente a partir do diálogo colaborativo.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                    <div>
+                        <strong>Cuidar do coletivo:</strong> Se você notar alguém em situação desconfortável, ofereça apoio ou notifique imediatamente uma pessoa da equipe organizadora.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="cdc-content-section">
+            <h2 class="cdc-section-heading">
+                <span class="heading-number">3</span> Comportamentos Inaceitáveis
+            </h2>
+            <p>São expressamente proibidos em qualquer atividade ou espaço associado ao evento:</p>
+            <ul class="cdc-prohibited-list">
+                <li>
+                    <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                    <div>
+                        <strong>Assédio de qualquer natureza:</strong> Comportamento ofensivo, humilhação, comentários degradantes ou piadas relacionadas a raça, gênero, orientação sexual, deficiência, idade ou religião.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                    <div>
+                        <strong>Sexualização inadequada:</strong> Uso de imagens, piadas ou linguagem de conotação sexual em palestras, slides, materiais promocionais, estandes de empresas ou roupas inadequadas ao ambiente profissional comunitário.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                    <div>
+                        <strong>Intimidação e toque não consensual:</strong> Perseguição deliberada (stalking), contato físico não solicitado, avanços sexuais indesejados ou gravação/fotografia de pessoas após solicitação de interrupção.
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>
+                    <div>
+                        <strong>Interrupção intencional:</strong> Boicote, interrupção sustentada de palestras, mesas redondas, oficinas ou de atividades oficiais da programação.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="cdc-content-section">
+            <h2 class="cdc-section-heading">
+                <span class="heading-number">4</span> Onde Este Código se Aplica
+            </h2>
+            <p>
+                Este Código de Conduta aplica-se a <strong>todos os ambientes e momentos vinculados à Python Nordeste 2027</strong>, incluindo:
+            </p>
+            <div class="cdc-scope-grid">
+                <div class="scope-card">
+                    <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                    <h4>Espaços Físicos</h4>
+                    <p>Auditórios, salas de workshop, corredores, áreas de convivência, estandes, alimentação e banheiros.</p>
+                </div>
+                <div class="scope-card">
+                    <i class="fa-solid fa-comments" aria-hidden="true"></i>
+                    <h4>Canais Digitais</h4>
+                    <p>Grupos no Telegram/WhatsApp, servidores Discord, comentários em lives e redes sociais oficiais.</p>
+                </div>
+                <div class="scope-card">
+                    <i class="fa-solid fa-champagne-glasses" aria-hidden="true"></i>
+                    <h4>Eventos Sociais</h4>
+                    <p>Happy hours oficiais, jantares comunitários, atividades culturais e translados oficiais da conferência.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cdc-content-section">
+            <h2 class="cdc-section-heading">
+                <span class="heading-number">5</span> Procedimento de Aplicação & Consequências
+            </h2>
+            <p>
+                Pessoas participantes que forem solicitadas a cessar qualquer comportamento inadequado devem obedecer <strong>imediatamente</strong>.
+            </p>
+            <p>
+                Caso ocorra violação ao Código de Conduta, a organização e a Comissão de Resposta a Incidentes tomarão as medidas proporcionais e cabíveis para restabelecer a segurança coletiva, incluindo:
+            </p>
+            <ol class="cdc-steps-list">
+                <li>Advertência formal e direta à pessoa infratora;</li>
+                <li>Expulsão imediata da atividade ou do evento como um todo, <strong>sem qualquer direito a reembolso</strong> do valor de ingresso;</li>
+                <li>Banimento temporário ou permanente de futuros eventos organizados pela comunidade Python Nordeste;</li>
+                <li>Acionamento das forças de segurança pública e autoridades policiais competentes em caso de conduta criminosa.</li>
+            </ol>
+        </section>
+
+        <!-- Seção de Agradecimentos e Créditos -->
+        <footer class="cdc-credits-footer">
+            <p>
+                Este Código de Conduta é fundamentado nas diretrizes históricas da 
+                <a href="https://apyb.python.org.br/pythonbrasil/cdc/" target="_blank" rel="noopener noreferrer">Associação Python Brasil (APyB)</a>,
+                da <a href="https://www.python.org/psf/conduct/" target="_blank" rel="noopener noreferrer">Python Software Foundation (PSF)</a>
+                e no <a href="https://www.contributor-covenant.org/" target="_blank" rel="noopener noreferrer">Contributor Covenant</a>.
+            </p>
+            <div class="cdc-return-action">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar à Página Principal
+                </a>
+            </div>
+        </footer>
+
+    </article>
+</main>
+{% endblock %}

@@ -64,48 +64,62 @@ Para organizar as contribuições da comunidade no GitHub, utilizamos a seguinte
   - Geração automática de `dist/robots.txt` com `Disallow: /`.
   - Desativação do Google Analytics em ambiente de staging.
   - Criação de `dist/.nojekyll` para compatibilidade com o GitHub Pages.
+- [x] **Barra de Navegação Fixa e Responsiva (Issue #01)**
+  - Navbar fixa no topo com efeito vidro translúcido (`backdrop-filter: blur`) com scroll listener (`static/js/navbar.js`).
+  - Links de navegação suaves para as seções da página (*Início*, *Sobre*, *Destino*) e link dedicado para o *Código de Conduta*.
+  - Ícones de redes sociais da comunidade à direita e suporte a botão CTA de ingressos.
+  - Menu hambúrguer animado e responsivo para celulares (< 860px) com controle via teclado (`Escape`) e fechamento ao clicar fora.
+- [x] **Seção "Sobre a Python Nordeste" (Issue #02)**
+  - Bloco institucional em `pages/index.j2` contextualizando a história itinerante de mais de 10 anos pelos 9 estados do Nordeste e a chegada ao litoral do Piauí.
+  - Grid de estatísticas comunitárias parametrizáveis via `variables.yaml` com hover interativo.
+  - Card de citação em destaque celebrando o lema histórico *Pessoas > Tecnologia*.
+- [x] **Página Dedicada do Código de Conduta (`/cdc.html`) (Issue #03)**
+  - Página dedicada `pages/cdc.j2` compilada automaticamente para `dist/cdc.html`.
+  - Texto oficial e integral do CDC baseado nas diretrizes da APyB e PSF.
+  - Cartão de reporte de incidentes em destaque com e-mail seguro da comissão (`conduta@pythonnordeste.org`).
+  - Navegação consistente herdando de `templates/base.j2` e botão de retorno para a home.
 
 ---
 
 ## 🟡 Próximas Prioridades (To Do / In Progress)
 
-### #01 — Barra de Navegação (Navbar Fixa e Responsiva)
+### #01 — Barra de Navegação (Navbar Fixa e Responsiva) — ✅ CONCLUÍDO
 - **Tipo:** `type: feat`
 - **Labels:** `scope: ui/ux`, `good first issue`
 - **Milestone:** `v0.2.0 - Navegação & Identidade`
 - **Esforço:** `Médio`
 - **Descrição:** Adicionar barra de navegação no topo com logo, links de rolagem suave para as seções da página (*Início*, *Sobre*, *Destino*, *CDC*) e atalhos para as redes sociais.
 - **Critérios de Aceite:**
-  - [ ] Navbar fixa no topo com efeito vidro/blur translúcido ao rolar a página.
-  - [ ] Links âncora funcionando com rolagem suave (`scroll-behavior: smooth`).
-  - [ ] Ícones sociais do GitHub, Instagram, LinkedIn e YouTube à direita.
-  - [ ] Menu hambúrguer responsivo para celulares (< 768px).
+  - [x] Navbar fixa no topo com efeito vidro/blur translúcido ao rolar a página.
+  - [x] Links âncora funcionando com rolagem suave (`scroll-behavior: smooth`).
+  - [x] Ícones sociais do GitHub, Instagram, LinkedIn e YouTube à direita.
+  - [x] Menu hambúrguer responsivo para celulares (< 768px).
 
 ---
 
-### #02 — Seção "Sobre a Python Nordeste"
+### #02 — Seção "Sobre a Python Nordeste" — ✅ CONCLUÍDO
 - **Tipo:** `type: feat`
 - **Labels:** `scope: content`, `good first issue`
 - **Milestone:** `v0.2.0 - Navegação & Identidade`
 - **Esforço:** `Pequeno`
 - **Descrição:** Criar um bloco institucional contextualizando a história itinerante de mais de 10 anos do evento, o compromisso com diversidade e inclusão, e a celebração da chegada inédita ao litoral do Piauí.
 - **Critérios de Aceite:**
-  - [ ] Texto e títulos configuráveis via `variables.yaml`.
-  - [ ] Layout harmonizado com a paleta oficial (fundo Areia/Off-white e tipografia *Outfit*).
-  - [ ] Destaques em números ou marcos da comunidade (anos de história, edições passadas).
+  - [x] Texto e títulos configuráveis via `variables.yaml`.
+  - [x] Layout harmonizado com a paleta oficial (fundo Areia/Off-white e tipografia *Outfit*).
+  - [x] Destaques em números ou marcos da comunidade (anos de história, edições passadas).
 
 ---
 
-### #03 — Página Dedicada do Código de Conduta (`/cdc.html`)
+### #03 — Página Dedicada do Código de Conduta (`/cdc.html`) — ✅ CONCLUÍDO
 - **Tipo:** `type: feat`
 - **Labels:** `scope: community`, `type: docs`, `good first issue`
 - **Milestone:** `v0.2.0 - Navegação & Identidade`
 - **Esforço:** `Pequeno`
 - **Descrição:** Implementar uma página dedicada (`pages/cdc.j2`) com o texto completo do Código de Conduta da APyB e canais de contato da comissão de resposta a incidentes.
 - **Critérios de Aceite:**
-  - [ ] Página acessível diretamente pela rota `/cdc.html`.
-  - [ ] Texto integral com formatação limpa e legível.
-  - [ ] Informações claras sobre como reportar incidentes de forma segura.
+  - [x] Página acessível diretamente pela rota `/cdc.html`.
+  - [x] Texto integral com formatação limpa e legível.
+  - [x] Informações claras sobre como reportar incidentes de forma segura.
 
 ---
 

@@ -45,7 +45,7 @@
 
     <meta name="author" content="Comunidade {{ event_name }}">
     
-    <title>{{ event_title }}</title>
+    <title>{% block title %}{{ event_title }}{% endblock %}</title>
 
     <!-- Open Graph: preview de links no Facebook, LinkedIn, WhatsApp, Telegram, etc. -->
     <meta property="og:title" content="{{ event_title }}">
@@ -99,17 +99,100 @@
 
 </head>
 <body>
+    {% block navbar %}
+    {% set repo_url = github_repo_url | default(social.github if social and social.github else '') %}
+    <header id="site-header" class="site-header">
+        <nav class="navbar" id="navbar" aria-label="Navegação Principal">
+            <div class="navbar-container">
+                <a href="index.html#hero" class="navbar-brand" aria-label="{{ event_name }} {{ event_edition }}">
+                    <img src="{{ event_favicon }}" alt="Logo Oficial {{ event_name }}" class="navbar-logo" width="38" height="38">
+                    <span class="navbar-brand-text">{{ event_name }} <span class="navbar-edition">{{ event_edition }}</span></span>
+                </a>
+
+                <div class="navbar-menu" id="navbar-menu">
+                    <ul class="navbar-links">
+                        {% if nav and nav.links %}
+                            {% for link in nav.links %}
+                            <li><a href="{{ link.url }}" class="nav-link">{{ link.label }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <li><a href="index.html#hero" class="nav-link">Início</a></li>
+                            <li><a href="index.html#about" class="nav-link">Sobre</a></li>
+                            <li><a href="index.html#destination" class="nav-link">Destino</a></li>
+                            <li><a href="index.html#venue" class="nav-link">Local</a></li>
+                            <li><a href="cdc.html" class="nav-link">Código de Conduta</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="navbar-actions">
+                        <div class="navbar-social">
+                            {% if social.instagram %}
+                            <a href="{{ social.instagram }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="Instagram da PyNE">
+                                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                            {% if social.linkedin %}
+                            <a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="LinkedIn da PyNE">
+                                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                            {% if social.youtube %}
+                            <a href="{{ social.youtube }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="YouTube da PyNE">
+                                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                            {% if repo_url %}
+                            <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="nav-social-icon" aria-label="Repositório do projeto no GitHub">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+
+                        {% if actions and actions.tickets_url %}
+                        <a href="{{ actions.tickets_url }}" target="_blank" rel="noopener noreferrer" class="btn-nav-cta">
+                            <i class="fa-solid fa-ticket" aria-hidden="true"></i> Ingressos
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <button class="navbar-toggle" id="navbar-toggle" aria-expanded="false" aria-controls="navbar-menu" aria-label="Alternar menu de navegação">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+
+            <!-- Linha de navegação com o Guará sobrevoando / Scroll progress -->
+            <div class="nav-guara-stream" id="nav-guara-stream" aria-hidden="true">
+                <div class="stream-line" id="stream-line"></div>
+                <div class="stream-guara-pilot" id="stream-guara-pilot" title="Guará-vermelho acompanhando sua navegação">
+                    <div class="guara-flapper nav-pilot-flapper">
+                        <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                        <img src="static/img/guara/guara_down.png" alt="" class="guara-frame frame-down" />
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
     {% block content %}
     {% endblock %}
 
     {% block footer %}
     {% set repo_url = github_repo_url | default(social.github if social and social.github else '') %}
+    {% set cdc_link = 'cdc.html' if code_of_conduct and code_of_conduct.page_url else (code_of_conduct_url | default('#')) %}
     <footer id="footer">
         <div class="footer-content">
-            {% if code_of_conduct_url %}
+            <div class="footer-brand-emblem" aria-hidden="true">
+                <img src="static/img/brand/monograma.svg" alt="" class="footer-emblem-icon" width="46" height="46" />
+            </div>
+
+            {% if cdc_link %}
             <p class="footer-cdc">
                 <i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Este evento segue o 
-                <a href="{{ code_of_conduct_url }}" target="_blank" rel="noopener noreferrer">
+                <a href="{{ cdc_link }}">
                     Código de Conduta da Comunidade Python
                 </a>.
             </p>
@@ -125,12 +208,28 @@
             {% endif %}
 
             <p class="footer-sub">
-                {{ event_name }} {{ event_edition }} • Feito com <i class="fa-solid fa-heart footer-heart" aria-hidden="true"></i> pela comunidade
+                {{ event_name }} {{ event_edition }} • Parnaíba/PI • Feito com <i class="fa-solid fa-heart footer-heart" aria-hidden="true"></i> pela comunidade
             </p>
         </div>
     </footer>
     {% endblock %}
 
+    <aside id="guara-nav-companion" class="guara-nav-companion" aria-label="Guará companheiro de navegação">
+        <div class="companion-bubble" id="companion-bubble">
+            <span class="companion-section-tag" id="companion-section-tag">Delta do Parnaíba</span>
+            <span class="companion-text" id="companion-text">Sobrevoando o evento... 🪶</span>
+        </div>
+        <button class="companion-flyer-btn" id="btn-guara-top" title="Voar de volta ao topo com o Guará" aria-label="Voltar ao topo da página">
+            <div class="guara-flapper companion-flapper">
+                <img src="static/img/guara/guara_up.png" alt="" class="guara-frame frame-up" />
+                <img src="static/img/guara/guara_down.png" alt="Guará navegando com você" class="guara-frame frame-down" />
+            </div>
+            <span class="companion-hover-hint"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></span>
+        </button>
+    </aside>
+
+    <script src="static/js/navbar.js"></script>
+    <script src="static/js/guara_animation.js"></script>
     {% block extra_js %}
     {% endblock %}
 </body>

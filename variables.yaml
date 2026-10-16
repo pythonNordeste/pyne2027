@@ -32,12 +32,15 @@ theme:
   secondary_color: "#D4638A"   # Rosa Destaque
   accent_color: "#F9F4E8"      # Areia / Off-white
   text_dark: "#2B1B22"         # Texto contrastante
-  logo: "static/img/pyne_emblem.png"
+  logo: "static/img/favicon.png"
+  logo_horizontal: "static/img/brand/logo.svg"
   favicon: "static/img/favicon.png"
   # Imagem do preview ao compartilhar o link em redes sociais (og:image / twitter:image).
   # Aceita caminho relativo (convertido para URL absoluta usando event.url) ou URL completa.
   # Recomendado: 1200x630 (ou 1920x1080), JPG/PNG, até 5MB.
   preview_image: "static/img/logo_pyne2027.png"
+  guara: "static/img/guara/guara.png"
+  nordeste: "static/img/brand/nordeste.svg"
   preview_image_alt: "Logo oficial da Python Nordeste 2027"
   preview_image_width: 1920
   preview_image_height: 1080
@@ -46,6 +49,9 @@ theme:
 # "photo" é o número da foto em static/img/city/ (ex.: "01" -> 01.jpg).
 # "alt" descreve a imagem para leitores de tela; "description" aparece na legenda.
 destination:
+  tag: "Destino 2027"
+  title: "Parnaíba espera por você"
+  subtitle: "O litoral do Piauí combina natureza exuberante, dunas paradisíacas e o acolhimento caloroso da nossa comunidade."
   highlights:
     - photo: "01"
       title: "Delta do Parnaíba"
@@ -112,6 +118,46 @@ actions:
 
 # Código de Conduta (obrigatório em eventos da comunidade)
 code_of_conduct_url: "https://apyb.python.org.br/pythonbrasil/cdc/"
+code_of_conduct:
+  page_url: "cdc.html"
+  report_email: "conduta@pythonnordeste.org"
+  official_url: "https://apyb.python.org.br/pythonbrasil/cdc/"
+
+# Configuração da Barra de Navegação
+nav:
+  links:
+    - label: "Início"
+      url: "index.html#hero"
+    - label: "Sobre"
+      url: "index.html#about"
+    - label: "Destino"
+      url: "index.html#destination"
+    - label: "Local"
+      url: "index.html#venue"
+    - label: "Código de Conduta"
+      url: "cdc.html"
+
+# Seção Sobre a Python Nordeste
+about:
+  tag: "Comunidade & História"
+  title: "Sobre a Python Nordeste"
+  subtitle: "Mais de uma década conectando pessoas, impulsionando carreiras e celebrando a tecnologia aberta em todo o Nordeste."
+  paragraphs:
+    - "Há mais de 10 anos conectando talentos e celebrando a tecnologia aberta, a Python Nordeste é a maior conferência regional da comunidade Python na América Latina. Itinerante e guiada pelo lema <strong class=\"motto-highlight\">«Pessoas > Tecnologia»</strong>, o evento já percorreu todos os 9 estados da região promovendo conhecimento, diversidade e inclusão. Em 2027, desembarca pela primeira vez no litoral do Piauí, em Parnaíba, para uma edição histórica de palestras, tutoriais e conexões que transformam carreiras."
+  stats:
+    - number: "10+"
+      label: "Anos de História"
+      icon: "fa-solid fa-calendar-days"
+    - number: "9"
+      label: "Estados Nordestinos"
+      icon: "fa-solid fa-map-location-dot"
+    - number: "1ª"
+      label: "Vez no Litoral do Piauí"
+      icon: "fa-solid fa-umbrella-beach"
+    - number: "100%"
+      label: "Feito pela Comunidade"
+      icon: "fa-solid fa-heart"
+
 
 # Redes Sociais da Comunidade
 social:
